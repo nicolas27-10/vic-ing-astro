@@ -6,8 +6,72 @@ import Footer from '../components/Footer.astro';
 
 <Layout title="Vic - Ing y Seguridad.">
 	<Header/>
-	<main class="min-h-screen bg-black">
-		
+	<main class="min-h-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+
+        <h1 class="text-4xl md:text-6xl font-bold text-center pt-20 text-white">Nuestros Servicios</h1>
+		<br><br>
+
+        <section class="max-w-[70%] mx-auto">
+            <div class="parent h-[500px]">
+                <div class="div1 rounded-xl content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">CCTV</div>
+                <div class="div2 rounded-xl bg-orange-400 content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">2</div>
+                <div class="div5 rounded-xl bg-green-400 content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">5</div>
+                <div class="div6 rounded-xl bg-red-500 content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">6</div>
+                <div class="div7 rounded-xl bg-yellow-300 content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">7</div>
+                <div class="div8 rounded-xl bg-fuchsia-600 content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">8</div>
+            </div>
+        </section>
+            
 	</main>
 	<Footer/>
 </Layout>
+
+<style>
+    
+    .parent {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 10px;
+    }
+        
+    .div1 {
+        grid-column: span 2 / span 2;
+        grid-row: span 3 / span 3;
+    }
+
+    .div2 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 1;
+        grid-row-start: 4;
+    }
+
+    .div5 {
+        grid-column: span 2 / span 2;
+        grid-row: span 3 / span 3;
+        grid-column-start: 3;
+        grid-row-start: 3;
+    }
+
+    .div6 {
+        grid-column: span 2 / span 2;
+        grid-row: span 2 / span 2;
+        grid-column-start: 3;
+        grid-row-start: 1;
+    }
+
+    .div7 {
+        grid-row: span 3 / span 3;
+        grid-column-start: 5;
+        grid-row-start: 1;
+    }
+
+    .div8 {
+        grid-row: span 2 / span 2;
+        grid-column-start: 5;
+        grid-row-start: 4;
+    }
+        
+</style>
+
