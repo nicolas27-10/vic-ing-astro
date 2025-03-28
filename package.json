@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/tailwind": "^5.1.2",
     "@fontsource-variable/ibm-plex-sans": "^5.2.5",
+    "@fontsource/fira-sans-condensed": "^5.2.5",
     "astro": "^4.16.18",
     "tailwindcss": "^3.4.14"
   }
