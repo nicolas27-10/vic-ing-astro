@@ -1,0 +1,58 @@
+---
+import '@fontsource/dela-gothic-one';
+---
+
+<div class="parent max-w-5xl mx-auto h-[700px] text-6xl text-white">
+
+    <div class="div1 rounded-xl content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/camara.jpg');">
+        <div class="z-20">CCTV</div>
+    </div>
+    <div class="div2 rounded-xl content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/alarma.jpg');">
+        Alarmas
+    </div>
+    <div class="div3 rounded-xl content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/ccaa.jpg');">
+        Control de acceso
+    </div>
+    <div class="div4 rounded-xl content-center text-center bg-cover bg-center hover:scale-105 transition" style="background-image: url('/images/cerco.jpg');">
+        Cerco electrico
+    </div>
+</div>
+
+<style>
+    .parent {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        gap: 18px;
+    }
+
+    .div1 {
+        grid-column: span 3 / span 3;
+        grid-row: span 5 / span 5;
+        font-family: 'Dela Gothic One', system-ui;
+    }
+
+    .div2 {
+        grid-column: span 3 / span 3;
+        grid-row: span 3 / span 3;
+        grid-column-start: 1;
+        grid-row-start: 6;
+        font-family: 'Dela Gothic One', system-ui;
+    }
+
+    .div3 {
+        grid-column: span 3 / span 3;
+        grid-row: span 4 / span 4;
+        grid-column-start: 4;
+        grid-row-start: 1;
+        font-family: 'Dela Gothic One', system-ui;
+    }
+
+    .div4 {
+        grid-column: span 3 / span 3;
+        grid-row: span 4 / span 4;
+        grid-column-start: 4;
+        grid-row-start: 5;
+        font-family: 'Dela Gothic One', system-ui;
+    }
+</style>
