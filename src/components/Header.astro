@@ -1,5 +1,5 @@
-<header class="flex justify-between px-20 z-20 text-lg text-white bg-neutral-900/70" >
-    <a class="flex items-center rounded-md" href="/">
+<header class="flex justify-between px-20 text-lg text-white  bg-white/10">
+    <a class="flex items-center" href="/">
         
         <div >
             <img class="h-20 p-2" src="/images/logo-horizontal.svg" alt="logo Vic Ingeniería y Seguridad">
@@ -7,10 +7,69 @@
     </a>
     
     
-    <nav class=" flex flex-row items-center gap-x-5">	
-        <a class="hover:underline underline-offset-4 " href="/">Inicio</a>
-        <a class="hover:underline underline-offset-4" href="/servicios">Nuestros Servicios</a>	
-        <!-- <a class="hover:underline underline-offset-4" href="acerca.html">Acerca de nosotros</a>	 -->
-        <a class="hover:underline underline-offset-4" href="/contacto">Contacto</a>						
+    <nav class="flex flex-row items-center gap-x-5">
+        <a class="hover:underline underline-offset-4" href="/">Inicio</a>
+    
+        <!-- Menú desplegable -->
+        <div class="relative z-20">
+            <a id="menuToggle" class="hover:underline underline-offset-4 cursor-pointer">Nuestros Servicios ▾</a>
+            <ul id="dropdownMenu" class="dropdown-list absolute hidden bg-slate-300 shadow-lg mt-2 p-3 rounded-md text-semibold">
+                <li><a href="#cctv">CCTV</a></li>
+                <li><a href="#control-acceso">Control de Acceso</a></li>
+                <li><a href="#alarma">Alarma</a></li>
+                <li><a href="#cerco-electrico">Cerco Eléctrico</a></li>
+            </ul>
+        </div>
+    
+        <a class="hover:underline underline-offset-4" href="/contacto">Contacto</a>
     </nav>
 </header>
+
+<style>
+    /* Estilo del contenedor de la lista desplegable */
+    .relative {
+        position: relative;
+        
+    }
+    
+    /* Estilo de la lista desplegable, inicialmente oculta */
+    .dropdown-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .dropdown-list li {
+        margin: 5px 0;
+    }
+    
+    .dropdown-list a {
+        text-decoration: none;
+        color: black;
+        display: block;
+        padding: 8px;
+    }
+    
+    .dropdown-list a:hover {
+        text-decoration: underline solid #0d112e;
+        text-decoration-thickness: 2px;
+    }
+    </style>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuToggle = document.getElementById("menuToggle");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+    
+        menuToggle.addEventListener("click", function(event) {
+            event.stopPropagation(); // Evita que el clic se propague al documento
+            dropdownMenu.classList.toggle("hidden");
+        });
+    
+        document.addEventListener("click", function(event) {
+            if (!menuToggle.contains(event.target as Node) && !dropdownMenu.contains(event.target as Node)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    });
+    </script>
+    

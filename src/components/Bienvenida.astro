@@ -1,5 +1,5 @@
 <section
-    class="relative py-20 flex items-center justify-center bg-inherit bg-center"
+    class="relative z-10 py-20 flex items-center justify-center bg-inherit bg-center"
     style="background-image: url('/images/fondo-camara.png');"
 >
     <!-- Fondo Oscuro para Mejorar Legibilidad -->
@@ -7,30 +7,58 @@
 
     <!-- Contenido -->
 
-    <div class="relative z-10 text-white text-center items-center flex flex-col bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 p-6 px-12">
-        <!-- <h1 class="text-4xl md:text-6xl font-bold" style="font-family: fira-sans-condensed;">
-            VIC Ingeniería y Seguridad
-        </h1> -->
-        <img class="h-80" src="/images/logo-negro.png" alt="Logo negro de VIC ING Y SEGURIDAD SPA">
+    <div
+        class="relative z-20 text-white text-center items-center flex flex-col bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 p-6 px-12"
+    >
+        <img
+            class="h-80"
+            src="/images/logo-negro.png"
+            alt="Logo negro de VIC ING Y SEGURIDAD SPA"
+        />
         <br />
         <p class="md:text-2xl">
-            <strong class="text-gray-100">¿Buscas seguridad?</strong>, no dudes en cotizar nuestros servicios.
+            <strong class="text-gray-100">¿Buscas seguridad?</strong>, no dudes
+            en cotizar nuestros servicios.
         </p>
-        
 
-        <div class="flex flex-row gap-12 content-center items-center w-full justify-center mt-10">
+        <div
+            class="flex flex-row gap-12 content-center items-center w-full justify-center mt-10"
+        >
             <a
-            href="contacto"
-                class=" border hover:scale-110 transition-all text-white px-5 py-4 rounded-3xl text-xl w-72"
+                href="contacto"
+                class="btn-contacto border transition-all text-white px-5 py-4 rounded-3xl text-xl w-72"
                 ><p>Contactanos</p></a
             >
-            
+
             <a
-            href="#servicios"
-                class="border hover:scale-110 transition-all text-white px-5 py-4 rounded-3xl text-xl w-72"
+                href="#servicios"
+                class="btn-servicio border transition-all text-white px-5 py-4 rounded-3xl text-xl w-72"
                 >Conoce Nuestros Servicios</a
             >
         </div>
-        
     </div>
 </section>
+
+<style>
+    .btn-contacto {
+        background: none;
+        color: #fff;
+        box-shadow: 0 0 0 1px #0d112e inset;
+        transition: all 0.2s ease-in;
+    }
+    .btn-contacto:hover {
+        color: #fff;
+        box-shadow: 0 -80px 0 1px #0d112e inset;
+    }
+
+    .btn-servicio {
+        background: none;
+        color: #fff;
+        box-shadow: 0 0 0 1px #0d112e inset;
+        transition: all 0.2s ease-in;
+    }
+    .btn-servicio:hover {
+        color: #fff;
+        box-shadow: 0 -80px 0 1px #0d112e inset;
+    }
+</style>
