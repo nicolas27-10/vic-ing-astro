@@ -5,7 +5,6 @@ interface Props {
 
 const { title } = Astro.props;
 
-
 import '@fontsource/fira-sans-condensed';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -15,9 +14,10 @@ import Footer from '../components/Footer.astro';
 <html lang="es" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<title>{title}</title>
 		<meta name="description" content="Vic - Ingeniería y Seguridad. Una empresa que se enfoca en tu tranquilidad" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"  />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
 	</head>
 	<body>
 		<Header/>
@@ -30,10 +30,15 @@ import Footer from '../components/Footer.astro';
 <style is:global>
 	html {
 		font-family: system-ui, sans-serif;
+		font-family: 'Gantari Variable', sans-serif;
 	}
+
 
 	body{
-		background-color: #222233;
+		background-color: #0f0f0f;
 	}
-
+	
+	@utility mask-fade-bottom{
+		mask-image: linear-gradient(to bottom, #1B1B28 80%, transparent 100%);
+	}
 </style>

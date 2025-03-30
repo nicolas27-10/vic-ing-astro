@@ -1,4 +1,4 @@
-<header class="flex justify-between px-20 text-lg text-white  bg-[#13171C]/20">
+<header class="fixed flex w-full justify-between z-30 px-20 text-lg text-white bg-[#13171C]">
     <a class="flex items-center" href="/">
         
         <div >
@@ -14,10 +14,10 @@
         <div class="relative z-20">
             <a id="menuToggle" class="hover:underline underline-offset-4 cursor-pointer">Nuestros Servicios ▾</a>
             <ul id="dropdownMenu" class="dropdown-list absolute hidden bg-slate-300 shadow-lg mt-2 p-3 rounded-md text-semibold">
-                <li><a href="#cctv">CCTV</a></li>
-                <li><a href="#control-acceso">Control de Acceso</a></li>
-                <li><a href="#alarma">Alarma</a></li>
-                <li><a href="#cerco-electrico">Cerco Eléctrico</a></li>
+                <li><a href="/cctv">CCTV</a></li>
+                <li><a href="/control">Control de Acceso</a></li>
+                <li><a href="/alarma">Alarma</a></li>
+                <li><a href="/cerco">Cerco Eléctrico</a></li>
             </ul>
         </div>
     
@@ -31,7 +31,7 @@
         position: relative;
         
     }
-    
+
     /* Estilo de la lista desplegable, inicialmente oculta */
     .dropdown-list {
         list-style-type: none;
@@ -47,11 +47,32 @@
         color: black;
         display: block;
         padding: 8px;
+        font-weight: 500;
     }
     
     .dropdown-list a:hover {
         text-decoration: underline solid #0d112e;
         text-decoration-thickness: 2px;
+    }
+
+    header {
+        animation: header-blur-scroll 0.3s ease-in-out both;
+        animation-timeline: scroll();
+        animation-range: 0 200px;
+    }
+
+    @keyframes header-blur-scroll {
+        0% {
+            /* backdrop-filter: blur(0px); */
+            background:#13171C;
+        }
+        100% {
+            /* backdrop-filter: blur(10px); */
+            /* background: rgba(0, 0 , 0, 0.2); */
+            background: transparent;
+            /* padding-bottom: var(--spacing-2); */
+            border-bottom-color:black;
+        }
     }
     </style>
     
@@ -61,7 +82,7 @@
         const dropdownMenu = document.getElementById("dropdownMenu");
     
         menuToggle.addEventListener("click", function(event) {
-            event.stopPropagation(); // Evita que el clic se propague al documento
+            //event.stopPropagation(); // Evita que el clic se propague al documento
             dropdownMenu.classList.toggle("hidden");
         });
     
