@@ -1,6 +1,6 @@
 <section
     class="relative min-h-[90vh] z-10 py-20 flex items-center justify-center bg-center"
-    style="background-image: url('/images/back/fondo-camara.png'); "
+    style="background-image: url('/images/back/fondo-camara.jpg'); "
 >
 <!-- mask-image: linear-gradient(to bottom, black 95%, transparent 100%); -->
 
@@ -10,7 +10,7 @@
     <!-- Contenido -->
 
     <div
-        class="relative z-20 mt-20 text-white text-center items-center flex flex-col bg-white/10 backdrop-blur-md rounded-xl shadow-2xl border border-white/10 p-6 px-12 animate-fade-in animate-duration-300"
+        class="relative z-20 md:mt-20 mx-4 text-white text-center items-center flex flex-col bg-white/10 backdrop-blur-md rounded-xl shadow-2xl border border-white/10 p-6 px-12 animate-fade-in animate-duration-300"
     >
 
         <span class="pointer-events-none bg-gray-600/60 backdrop-blur-lg px-3 py-1 rounded-full text-xs mb-4 flex items-center gap-2 text-white font-semibold">
@@ -18,7 +18,7 @@
         </span>
 
         <img
-            class="h-80 animate-fade-in animate-duration-800 animate-delay-300"
+            class="md:h-80 h-48 animate-fade-in animate-duration-800 animate-delay-300"
             src="/images/logo/logo-negro.png"
             alt="Logo negro de VIC ING Y SEGURIDAD SPA"
         />
@@ -29,7 +29,7 @@
         </p>
 
         <div
-            class="flex flex-row gap-12 content-center items-center w-full justify-center mt-10 animate-fade-in animate-duration-800 animate-delay-800"
+            class="flex md:flex-row flex-col md:gap-12 gap-6 content-center items-center w-full justify-center mt-10 animate-fade-in animate-duration-800 animate-delay-800"
         >
             <a
                 href="contacto"
@@ -47,25 +47,60 @@
 </section>
 
 <style>
-    .btn-contacto {
+    @media (max-width: 768px) {
+        .btn-contacto {
+            background: none;
+            color: #fff;
+        }
+        .btn-contacto:hover {
+            color: #fff;
+            animation: pop 0.6s ease-out both;
+        }
+
+        .btn-servicio {
+            background: none;
+            color: #fff;            
+        }
+        .btn-servicio:hover {
+            animation: pop 0.6s ease-out both;
+            color: #fff;
+        }
+    }
+
+    @keyframes pop {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @media (min-width: 768px) {
+        .btn-contacto {
         background: none;
         color: #fff;
-        box-shadow: 0 0 0 1px #0d112e inset;
         transition: all 0.2s ease-in;
-    }
+        }
     .btn-contacto:hover {
         color: #fff;
         box-shadow: 0 -80px 0 1px #0d112e inset;
-    }
+        }
 
     .btn-servicio {
         background: none;
         color: #fff;
-        box-shadow: 0 0 0 1px #0d112e inset;
         transition: all 0.2s ease-in;
-    }
+        }
     .btn-servicio:hover {
         color: #fff;
         box-shadow: 0 -80px 0 1px #0d112e inset;
+        }
     }
+    
+
+    
 </style>

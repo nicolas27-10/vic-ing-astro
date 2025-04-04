@@ -1,33 +1,32 @@
 ---
-import ModalFormSucces from "../components/ModalFormSucces.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="VIC Ing y Seguridad. - Contáctanos">
 	<main class="bg-black">
 		<section
-			class="relative min-h-[100vh] flex items-center justify-center bg-cover bg-center flex-col py-[10%] text-white"
+			class="relative min-h-[100vh] flex items-center justify-center bg-cover bg-center flex-col md:py-[10%] py-24 text-white"
 			style="background-image: url('/images/back/sala-reuniones.jpg');"
 		>
 			<div class="absolute inset-0 bg-black/70"></div>
 
 			<div
-				class="z-10 flex flex-col items-center justify-center w-full text-center"
+				class="z-10 flex flex-col items-center justify-center md:w-full w-[90%] text-center"
 			>
-				<h1 class="text-6xl font-bold mb-1">Contáctanos</h1>
-				<p class="text-lg">
+				<h1 class="md:text-6xl text-4xl font-bold mb-1">Contáctanos</h1>
+				<p class="md:text-lg text-md">
 					Estamos aquí para ayudarte a vivir <strong>Seguro</strong> y
 					<strong>Tranquílo</strong>. <br /> Contactanos y te responderemos
 					lo antes posible.
 				</p>
 			</div>
 
-			<section class="z-10 flex justify-between gap-20 w-[60%] mt-10">
+			<section class="z-10 flex flex-col md:flex-row md:justify-between justify-center md:gap-20 gap-10 md:w-[60%] w-[90%] mt-10">
 				<div class="division-horizontal w-full flex flex-col gap-10">
 					<div>
-						<h1 class="text-3xl font-bold flex items-center gap-4">
+						<h1 class="md:text-3xl text-2xl font-bold flex items-center md:gap-4 gap-2">
 							<img
-								class="w-8 h-8"
+								class="md:h-8 h-6 w-auto"
 								src="/icon/map-pin.svg"
 								alt="map-pin icon"
 							/>
@@ -47,60 +46,60 @@ import Layout from "../layouts/Layout.astro";
 							></iframe>
 						</div>
 						<p class="text-lg mt-2 ml-4">
-							Rojas Magallanes 86, La FLorida, Chile
+							Rojas Magallanes 86, La Florida, Chile
 						</p>
 					</div>
 
-					<div
-						class="flex gap-10 items-center justify-between w-full"
-					>
-						<div>
-							<h1
-								class="text-3xl font-bold flex items-center gap-4"
-							>
-								<img
-									class="w-8 h-8"
-									src="/icon/phone.svg"
-									alt="phone icon"
-								/>
-								Teléfono
-							</h1>
-							<p class="text-xl mt-1 ml-4">+56 9 6426 2330</p>
+					<div class="flex flex-col md:gap-10 gap-4 justify-between w-full">
+						<div class="flex flex-row md:gap-10 items-center justify-between md:w-full">
+							<div class="w-[50vw] md:w-fit">
+								<h1
+									class="md:text-3xl text-2xl font-bold flex items-center md:gap-4"
+								>
+									<img
+										class="md:h-8 h-6 w-auto"
+										src="/icon/phone.svg"
+										alt="phone icon"
+									/>
+									Teléfono
+								</h1>
+								<p class="md:text-xl text-lg mt-1 md:ml-4">+56 9 6426 2330</p>
+							</div>
+							<button class="md:w-40 flex justify-end">
+								<a
+									href="tel:+56964262330"
+									class="bg-blue-500 hover:bg-blue-700 transition text-lg text-white font-bold py-2 px-4 rounded hover:rounded-md"
+									>Llamar ahora</a
+								>
+							</button>
 						</div>
-						<button class="w-40 flex justify-end">
-							<a
-								href="tel:+56964262330"
-								class="bg-blue-500 hover:bg-blue-700 transition text-lg text-white font-bold py-2 px-4 rounded hover:rounded-md"
-								>Llamar ahora</a
-							>
-						</button>
-					</div>
-
-					<div
-						class="flex gap-10 items-center justify-between w-full"
-					>
-						<div>
-							<h1
-								class="text-3xl font-bold flex items-center gap-4"
-							>
-								<img
-									class="w-8 h-8"
-									src="/icon/mail.svg"
-									alt="mail icon"
-								/>
-								Correo Electrónico
-							</h1>
-							<p class="text-lg mt-1 ml-4">
-								josecastillo.vicspa@gmail.com
-							</p>
+	
+						<div
+							class="flex flex-row md:gap-10 items-center justify-between md:w-full"
+						>
+							<div class="w-[50vw] md:w-fit">
+								<h1
+									class="md:text-3xl text-2xl font-bold flex items-center md:gap-4 gap-2"
+								>
+									<img
+										class="md:h-8 h-6 w-auto"
+										src="/icon/mail.svg"
+										alt="mail icon"
+									/>
+									Correo <span class="hidden md:inline-block">Electrónico</span>
+								</h1>
+								<p class="md:text-xl text-lg mt-1 md:ml-4 overflow-auto">
+									contacto.vicspa@gmail.com
+								</p>
+							</div>
+							<button class="min-w-40 flex justify-end">
+								<a
+									href="mailto:contacto.vicspa@gmail.com"
+									class="bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md"
+									>Enviar correo</a
+								>
+							</button>
 						</div>
-						<button class="min-w-40 flex justify-end">
-							<a
-								href="mailto:josecastillo.vicspa@gmail.com"
-								class="bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md"
-								>Enviar correo</a
-							>
-						</button>
 					</div>
 				</div>
 
@@ -111,7 +110,7 @@ import Layout from "../layouts/Layout.astro";
 						class="w-full flex flex-col items-center justify-center"
 					>
 						<form
-							id="contact-form" class="text-left w-96" action="https://formspree.io/f/xzzejaoq"
+							id="contact-form" class="text-left md:w-96" action="https://formspree.io/f/xzzejaoq"
 							method="POST">
 							<label for="name"> Nombre:</label>
 							<input
@@ -151,16 +150,16 @@ import Layout from "../layouts/Layout.astro";
 			</section>
 		</section>
 
-		<dialog id="modal-success" class="backdrop:bg-black/55 absolute inset-0 bg-white z-10 rounded-xl shadow-2xl border border-white/10 animate-fade-in-down animate-duration-200">
-			<div class="modal-content  flex flex-col items-center justify-center p-6 px-10 max-w-lg text-center">
-				<h1 class="modal-title text-3xl">¡Gracias por contactarnos!</h1>
-				<p class="modal-message text-xl mt-5">Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto.</p>
-				<form method="dialog">
-					<button class="text-white text-lg bg-blue-500 hover:bg-blue-700 transition py-2 px-6 rounded hover:rounded-md mt-10">Cerrar</button>
-				</form>
-			</div>
-		</dialog>
 	</main>
+	<dialog id="modal-success" class="backdrop:bg-black/55 absolute inset-0 bg-white z-10 rounded-xl shadow-2xl border border-white/10 animate-fade-in-down animate-duration-400">
+		<div class="modal-content  flex flex-col items-center justify-center p-6 px-10 max-w-lg text-center">
+			<h1 class="modal-title text-3xl">¡Gracias por contactarnos!</h1>
+			<p class="modal-message text-xl mt-5">Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto.</p>
+			<form method="dialog">
+				<button class="text-white text-lg bg-blue-500 hover:bg-blue-700 transition py-2 px-6 rounded hover:rounded-md mt-10">Cerrar</button>
+			</form>
+		</div>
+	</dialog>
 </Layout>
 
 <script>
@@ -169,11 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	const formElement = document.getElementById("contact-form") as HTMLFormElement;
 	const modalElement = document.getElementById("modal-success") as HTMLDialogElement;
 
-	document.addEventListener("click", (event) => {
-		if (modalElement.open && !modalElement.contains(event.target as Node)) {
-            modalElement.close(); // Cierra el modal
-        }
-	});
+	// document.addEventListener("click", (event) => {
+	// 	if (modalElement.open && !modalElement.contains(event.target as Node)) {
+    //         modalElement.close(); // Cierra el modal
+    //     }
+	// });
 
 	formElement.addEventListener("submit", async function (event) {
 		event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada

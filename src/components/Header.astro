@@ -1,23 +1,23 @@
-<header class="fixed flex w-full justify-between z-30 px-20 text-lg text-white bg-[#13171C]">
+<header class="fixed flex w-full justify-between z-30 xl:px-20 px-2 md:text-lg text-md text-white bg-[#13171C]">
     <a class="flex items-center" href="/">
         
         <div >
-            <img class="h-20 p-2" src="/images/logo/logo-horizontal.svg" alt="logo Vic Ingeniería y Seguridad">
+            <img class="md:h-20 h-16 p-2" src="/images/logo/logo-horizontal.svg" alt="logo Vic Ingeniería y Seguridad">
         </div>
     </a>
     
     
-    <nav class="flex flex-row items-center gap-x-5">
+    <nav class="flex flex-row items-center md:gap-x-5 gap-x-3">
         <a class="hover:underline underline-offset-4" href="/">Inicio</a>
     
         <!-- Menú desplegable -->
         <div class="relative z-20">
             <a id="menuToggle" class="hover:underline underline-offset-4 cursor-pointer">Nuestros Servicios ▾</a>
-            <ul id="dropdownMenu" class="dropdown-list absolute hidden bg-slate-300 shadow-lg mt-2 p-3 rounded-md text-semibold">
-                <li><a href="/cctv">CCTV</a></li>
-                <li><a href="/control">Control de Acceso</a></li>
-                <li><a href="/alarma">Alarma</a></li>
-                <li><a href="/cerco">Cerco Eléctrico</a></li>
+            <ul id="dropdownMenu" class="dropdown-list absolute hidden w-fit bg-slate-300 shadow-lg mt-2 p-3 rounded-md text-semibold">
+                <li><a class="p-2 " href="/cctv">CCTV</a></li>
+                <li><a class="p-2 " href="/control">Control de Acceso</a></li>
+                <li><a class="p-2 " href="/alarma">Alarma</a></li>
+                <li><a class="p-2 " href="/cerco">Cerco Eléctrico</a></li>
             </ul>
         </div>
     
@@ -46,7 +46,6 @@
         text-decoration: none;
         color: black;
         display: block;
-        padding: 8px;
         font-weight: 500;
     }
     
