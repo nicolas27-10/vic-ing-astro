@@ -1,4 +1,5 @@
 ---
+import ModalFormSucces from "../components/ModalFormSucces.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -10,77 +11,177 @@ import Layout from "../layouts/Layout.astro";
 		>
 			<div class="absolute inset-0 bg-black/70"></div>
 
-
-			<div class="z-10 flex flex-col items-center justify-center w-full text-center">
+			<div
+				class="z-10 flex flex-col items-center justify-center w-full text-center"
+			>
 				<h1 class="text-6xl font-bold mb-1">Contáctanos</h1>
-				<p class="text-lg">Estamos aquí para ayudarte a vivir <strong>Seguro</strong> y <strong>Tranquílo</strong>. <br> Contactanos y te responderemos lo antes posible.</p>
+				<p class="text-lg">
+					Estamos aquí para ayudarte a vivir <strong>Seguro</strong> y
+					<strong>Tranquílo</strong>. <br /> Contactanos y te responderemos
+					lo antes posible.
+				</p>
 			</div>
 
-			<section class="z-10 flex  justify-between gap-20 w-[60%] mt-10">
-
+			<section class="z-10 flex justify-between gap-20 w-[60%] mt-10">
 				<div class="division-horizontal w-full flex flex-col gap-10">
-
 					<div>
 						<h1 class="text-3xl font-bold flex items-center gap-4">
-							<img class="w-8 h-8" src="/icon/map-pin.svg" alt="map-pin icon" />
+							<img
+								class="w-8 h-8"
+								src="/icon/map-pin.svg"
+								alt="map-pin icon"
+							/>
 							Ubicación
 						</h1>
 
 						<div class="w-full mt-2 shadow-lg">
-							<iframe class="h-[100px] w-full rounded-lg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.69121360963!2d-70.59450428793411!3d-33.53541310175854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d0ee77ff7625%3A0x9f7eef624244390c!2sRojas%20Magallanes%2086%2C%208242055%20La%20Florida%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1743454518363!5m2!1ses!2scl" width="" height="" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+							<iframe
+								class="h-[100px] w-full rounded-lg"
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.69121360963!2d-70.59450428793411!3d-33.53541310175854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d0ee77ff7625%3A0x9f7eef624244390c!2sRojas%20Magallanes%2086%2C%208242055%20La%20Florida%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1743454518363!5m2!1ses!2scl"
+								width=""
+								height=""
+								style="border:0;"
+								allowfullscreen=""
+								loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"
+							></iframe>
 						</div>
-						<p class="text-lg mt-2 ml-4">Rojas Magallanes 86, La FLorida, Chile</p>
+						<p class="text-lg mt-2 ml-4">
+							Rojas Magallanes 86, La FLorida, Chile
+						</p>
 					</div>
 
-					<div class="flex gap-10 items-center justify-between w-full">
+					<div
+						class="flex gap-10 items-center justify-between w-full"
+					>
 						<div>
-							<h1 class="text-3xl font-bold flex items-center gap-4">
-								<img class="w-8 h-8" src="/icon/phone.svg" alt="phone icon"/>
+							<h1
+								class="text-3xl font-bold flex items-center gap-4"
+							>
+								<img
+									class="w-8 h-8"
+									src="/icon/phone.svg"
+									alt="phone icon"
+								/>
 								Teléfono
 							</h1>
 							<p class="text-xl mt-1 ml-4">+56 9 6426 2330</p>
 						</div>
 						<button class="w-40 flex justify-end">
-							<a href="tel:+56964262330" class="bg-blue-500 hover:bg-blue-700 transition text-lg text-white font-bold py-2 px-4 rounded hover:rounded-md">Llamar ahora</a>
+							<a
+								href="tel:+56964262330"
+								class="bg-blue-500 hover:bg-blue-700 transition text-lg text-white font-bold py-2 px-4 rounded hover:rounded-md"
+								>Llamar ahora</a
+							>
 						</button>
 					</div>
 
-					<div class="flex gap-10 items-center justify-between w-full">
+					<div
+						class="flex gap-10 items-center justify-between w-full"
+					>
 						<div>
-							<h1 class="text-3xl font-bold flex items-center gap-4">
-								<img class="w-8 h-8" src="/icon/mail.svg" alt="mail icon"/>
+							<h1
+								class="text-3xl font-bold flex items-center gap-4"
+							>
+								<img
+									class="w-8 h-8"
+									src="/icon/mail.svg"
+									alt="mail icon"
+								/>
 								Correo Electrónico
 							</h1>
-							<p class="text-lg mt-1 ml-4">josecastillo.vicspa@gmail.com</p>
+							<p class="text-lg mt-1 ml-4">
+								josecastillo.vicspa@gmail.com
+							</p>
 						</div>
 						<button class="min-w-40 flex justify-end">
-							<a href="mailto:josecastillo.vicspa@gmail.com" class="bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md">Enviar correo</a>
+							<a
+								href="mailto:josecastillo.vicspa@gmail.com"
+								class="bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md"
+								>Enviar correo</a
+							>
 						</button>
 					</div>
-
 				</div>
 
-				<div class="z-10 text-center items-center  bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl border-white/20 p-10">
-					<div class="w-full flex flex-col items-center justify-center">
-						<form id="contact-form" class="text-left w-96" action="https://formspree.io/f/xzzejaoq" method="POST">
-							<label for="name"> Nombre:</label> 
-							<input type="text" name="nombre" class="text-black border border-gray-300 rounded-md p-2 mb-4 w-full" required/>
-							
-							<label for="mail"> Correo:</label> 
-							<input type="email" name="correo" class="text-black border border-gray-300 rounded-md p-2 mb-4 w-full" required/>
+				<div
+					class="z-10 text-center items-center bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl border-white/20 p-10"
+				>
+					<div
+						class="w-full flex flex-col items-center justify-center"
+					>
+						<form
+							id="contact-form" class="text-left w-96" action="https://formspree.io/f/xzzejaoq"
+							method="POST">
+							<label for="name"> Nombre:</label>
+							<input
+								type="text"
+								name="nombre"
+								class="text-black border border-gray-300 rounded-md p-2 mb-4 w-full"
+								required
+							/>
+
+							<label for="mail"> Correo:</label>
+							<input
+								type="email"
+								name="correo"
+								class="text-black border border-gray-300 rounded-md p-2 mb-4 w-full"
+								required
+							/>
 
 							<label for="mesage"> Mensaje:</label>
-							<textarea name="mensaje" class="text-black border border-gray-300 rounded-md p-2 mb-4 w-full" required></textarea>
+							<textarea
+								name="mensaje"
+								class="text-black border border-gray-300 rounded-md p-2 mb-4 w-full"
+								required></textarea>
 							<br />
-							<button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md">Enviar</button>
-							<p class="text-sm mt-2 mx-2 text-justify">Tu información está protegida, los datos proporcionados serán utilizados únicamente para responder a tu consulta.</p>
+							<button
+								type="submit"
+								class="w-full bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md"
+								>Enviar</button
+							>
+							<p class="text-sm mt-2 mx-2 text-justify">
+								Tu información está protegida, los datos
+								proporcionados serán utilizados únicamente para
+								responder a tu consulta.
+							</p>
 						</form>
 					</div>
 				</div>
-				
 			</section>
-
 		</section>
+
+		<ModalFormSucces id="modal-success"/>
 	</main>
 </Layout>
 
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+	const formElement = document.getElementById("contact-form") as HTMLFormElement;
+	const modalElement = document.getElementById("modal-success") as HTMLDialogElement;
+	
+	
+	formElement.addEventListener("submit", async function (event) {
+		event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+		const formData = new FormData(formElement);
+
+        const response = await fetch(this.action, {
+            method: this.method,
+            body: formData,
+            headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+            // alert("Mensaje enviado con éxito!");
+			modalElement.setAttribute('open', 'open');
+            this.reset(); // Limpia los campos del formulario
+        } else {
+            alert("Error al enviar el mensaje. Inténtalo de nuevo.");
+        }
+
+	
+    });
+});
+</script>
