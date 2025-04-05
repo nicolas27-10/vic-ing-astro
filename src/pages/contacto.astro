@@ -21,8 +21,8 @@ import Layout from "../layouts/Layout.astro";
 				</p>
 			</div>
 
-			<section class="z-10 flex flex-col md:flex-row md:justify-between justify-center md:gap-20 gap-10 md:w-[60%] w-[90%] mt-10">
-				<div class="division-horizontal w-full flex flex-col gap-10">
+			<section class="z-10 flex flex-col lg:flex-row lg:justify-between justify-center items-center md:gap-20 gap-10 md:w-[60%] w-[90%] mx-auto mt-10">
+				<div class="division-horizontal w-full flex flex-col gap-10 ">
 					<div>
 						<h1 class="md:text-3xl text-2xl font-bold flex items-center md:gap-4 gap-2">
 							<img
@@ -50,7 +50,7 @@ import Layout from "../layouts/Layout.astro";
 						</p>
 					</div>
 
-					<div class="flex flex-col md:gap-10 gap-4 justify-between w-full">
+					<div class="flex flex-col md:gap-10 gap-6 justify-between w-full">
 						<div class="flex flex-row md:gap-10 items-center justify-between md:w-full">
 							<div class="w-[50vw] md:w-fit">
 								<h1
@@ -92,7 +92,7 @@ import Layout from "../layouts/Layout.astro";
 									contacto.vicspa@gmail.com
 								</p>
 							</div>
-							<button class="min-w-40 flex justify-end">
+							<button class="md:w-40 flex justify-end">
 								<a
 									href="mailto:contacto.vicspa@gmail.com"
 									class="bg-blue-500 hover:bg-blue-700 transition text-lg font-bold py-2 px-4 rounded hover:rounded-md"
@@ -100,6 +100,36 @@ import Layout from "../layouts/Layout.astro";
 								>
 							</button>
 						</div>
+
+						<div class="md:flex md:flex-row hidden  items-center justify-between ml-1 w-full">
+							<h1 class="text-2xl font-bold  items-center w-auto gap-2">
+								O envianos un <span class="text-[#00E676]">WhatsApp</span>
+							</h1>
+							<div class="flex flex-col w-40 justify-center items-center">
+								<a  href="https://wa.me/964262330" target="_blank">
+									<img
+									class="h-12  w-full"
+									src="/icon/whatsapp.svg"
+									alt="whatsapp icon"
+									/>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex md:hidden flex-row  items-center justify-between w-full">
+					<h1 class="text-xl font-bold  items-center w-full gap-2">
+						O envianos un <span class="text-[#00E676]">WhatsApp</span>
+					</h1>
+					<div class="flex flex-col w-[30vw] justify-center items-center">
+						<a  href="https://wa.me/964262330" target="_blank">
+							<img
+							class="h-12  w-full"
+							src="/icon/whatsapp.svg"
+							alt="whatsapp icon"
+							/>
+						</a>
 					</div>
 				</div>
 
@@ -151,7 +181,7 @@ import Layout from "../layouts/Layout.astro";
 		</section>
 
 	</main>
-	<dialog id="modal-success" class="backdrop:bg-black/55 absolute inset-0 bg-white z-10 rounded-xl shadow-2xl border border-white/10 animate-fade-in-down animate-duration-400">
+	<dialog id="modal-success" class="backdrop:bg-black/55 bg-white z-10 rounded-xl shadow-2xl border border-white/10 animate-fade-in-down animate-duration-400">
 		<div class="modal-content  flex flex-col items-center justify-center p-6 px-10 max-w-lg text-center">
 			<h1 class="modal-title text-3xl">¡Gracias por contactarnos!</h1>
 			<p class="modal-message text-xl mt-5">Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto.</p>
