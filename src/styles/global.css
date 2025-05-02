@@ -1,4 +1,4 @@
-@import "tailwindcss";
+
 
 @font-face {
     font-family: "gantari";
@@ -28,6 +28,24 @@
     font-display: swap;
 }
 
-html{
-    font-family: "gantari", sans-serif;
+/* @font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/roboto-regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
+
+@font-face {
+font-family: 'Montserrat';
+src: url('/fonts/montserrat-regular.woff2') format('woff2');
+font-weight: normal;
+font-style: normal;
+}
+
+html, body {
+font-family: 'Roboto', sans-serif !important;
+}
+
+html h1{
+    font-family: 'Montserrat',sans-serif;
+} */
