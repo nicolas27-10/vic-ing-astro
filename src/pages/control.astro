@@ -1,9 +1,137 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '@fontsource/dela-gothic-one';
+
 ---
 
 <Layout title="Vic Seguridad - Control de Acceso.">
-	<main>
-	
+	<main class="min-h-screen text-white bg-gradient-to-b from-[#0D1A28] to-[#0d1b2ac9] snap-y snap-mandatory">
+                
+		<h1 class="text-5xl 2xl:text-6xl text-center pt-48 ">
+				Control de Acceso
+		</h1>
+
+		<section class="w-full flex flex-row items-center justify-between h-[55vh] gap-10 md:px-20 mt-16 bg-white">
+				<div class="flex flex-col items-center text-[#13171C] text-left">
+						<h1 class="2xl:text-4xl text-2xl text-bold py-4 w-full">
+								<strong> Controla quién entra y sale de tus instalaciones de forma segura. </strong>
+						</h1>
+
+						<p class="m-5 mt-0 py-3 2xl:text-2xl w-full">
+							Ofrecemos sistemas de acceso con tarjetas, biometría, teclados o control remoto, adaptados tanto a hogares como a empresas. Mejora la seguridad y el orden sin complicaciones.
+						</p>
+
+						<a href="/contacto">
+								<button class="xl:text-lg justify-center text-center border-2 border-[#13171C] shadow-lg rounded-lg mb-8 p-2 hover:bg-[#0D1A28] hover:text-white transition-all">Consulta por el servicio</button>
+						</a>
+				</div>
+				
+				<div class=" items-center overflow-clip flex aspect-video w-full">
+						<img class="h-[55vh] w-full " src="/images/services/ccaa/ccaa.jpg" alt="">
+				</div>                        
+		</section>
+
+		<span class="flex flex-col items-center text-center mt-28 mb-14 ">
+				<h1 class="text-4xl/tight 2xl:text-6xl/tight">¿Cómo funciona el control de acceso <br> y qué debes saber antes de instalarlo?</h1>
+		</span>
+
+		<section class="w-full flex md:flex-row flex-xol md:px-40 px-10 pt-14 mb-28 text-pretty md:justify-between ">
+				<button id="bubble1" class="relative md:w-[23vw] w-[50vw] aspect-square bg-[url(/images/services/ccaa/ccaa-huella.jpeg)] bg-cover bg-center rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
+						<span id="titulo" class="block">
+								<div class="absolute inset-0 bg-black/50 transition rounded-full"></div>
+								<div class="relative select-none pointer-events-none justify-center flex flex-col h-full">
+										<h2>¿Qué es?</h2>
+								</div>
+						</span>
+						<span id="info" class="hidden">
+								<div class="absolute inset-0 bg-black/70 transition rounded-full"></div>
+								<div class="relative select-none pointer-events-none items-center max-h-full px-10 overflow-clip">
+										<p class="text-3xl text-wrap font-semibold" style="transform: rotateY(180deg);">Es una solución tecnológica que <span class="text-blue-500 text-bold">restringe</span> quién puede ingresar a un espacio, usando medios como <span class="text-blue-500 text-bold">tarjetas</span>, <span class="text-blue-500 text-bold">huella</span> o <span class="text-blue-500 text-bold">PIN</span></p>
+								</div>
+						</span>
+				</button>
+
+				<button id="bubble2" class="relative w-[23vw] aspect-square bg-[url(/images/services/ccaa/teclado.jpg)] bg-cover bg-center rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
+						<span id="titulo2" class="block">
+								<div class="absolute inset-0 bg-black/50  transition rounded-full"></div>
+								<div class="relative select-none pointer-events-none justify-center flex flex-col h-full">
+										<h2>Utilidad</h2>
+								</div>
+						</span>
+						<span id="info2" class="hidden">
+								<div class="absolute inset-0 bg-black/70 transition rounded-full"></div>
+								<div class="relative select-none pointer-events-none  max-h-full px-10 overflow-clip">
+										<p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);">Permite tener <span class="text-blue-500">control total</span> sobre los <span class="text-blue-500">accesos</span>, aumentando la <span class="text-blue-500">seguridad</span> y reduciendo el riesgo de <span class="text-blue-500">ingresos no autorizados</span>.</p>
+								</div>
+						</span>
+				</button>
+
+				<button id="bubble3" class="relative w-[23vw] aspect-square bg-[url(/images/services/ccaa/ccaa-tarjeta.jpeg)] bg-cover bg-center rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
+						<span id="titulo3" class="block">
+								<div class="absolute inset-0 bg-black/60  transition rounded-full"></div>
+								<div class="relative select-none pointer-events-none justify-center flex flex-col overflow-clip">
+										<h2>Beneficios</h2>
+								</div>
+						</span>
+						<span id="info3" class="hidden">
+								<div class="absolute inset-0 bg-black/80 transition rounded-full"></div>
+								<div class="relative select-none pointer-events-none  max-h-full px-10 overflow-clip">
+										<p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);"><span class="text-blue-500">Seguridad</span> personalizada, prevención de <span class="text-blue-500">eventos de robo</span>, reducción de llaves físicas y <span class="text-blue-500">control</span> en tiempo real.</p>
+								</div>
+						</span>
+				</button>
+		</section>
+
+		<section class="w-full flex flex-row text-pretty justify-center pb-20">
+						
+		</section>
 	</main>
 </Layout>
+
+<style>
+	h2{
+			font-family: 'Dela Gothic One', system-ui;
+	}
+</style>
+
+<script>
+	// Aqui debe ir el script que agrega el efecto animate-rotate-left y animate-rotate-right a los elementos de la pagina luego de hacerles click a las cards de los servicios.
+	
+	function setupBubbleToggle(bubbleId, titleId, infoId) {
+                const bubble = document.getElementById(bubbleId);
+                const title = document.getElementById(titleId);
+                const info = document.getElementById(infoId);
+
+                bubble.addEventListener("click", () => {
+                        const isActive = bubble.classList.contains("animate-flip-horizontal") &&
+                                title.classList.contains("animate-fade-out");
+
+                        if (isActive) {
+                                bubble.classList.remove("animate-flip-horizontal");
+                                title.classList.remove("animate-fade-out", "hidden");
+                                info.classList.remove("animate-fade-in");
+                                info.classList.add("hidden");
+                        } else {
+                                bubble.classList.add("animate-flip-horizontal");
+                                title.classList.add("animate-fade-out");
+                                
+                                setTimeout(() => {
+                                        title.classList.add("hidden");
+                                }, 250);
+                                setTimeout(() => {
+                                        info.classList.add("animate-fade-in");
+                                        info.classList.remove("hidden");
+                                }, 500);
+                        }
+
+                        console.log(`click en ${bubbleId}`);
+                });
+        }
+
+        // Aplica a todas las burbujas
+        setupBubbleToggle("bubble1", "titulo", "info");
+        setupBubbleToggle("bubble2", "titulo2", "info2");
+        setupBubbleToggle("bubble3", "titulo3", "info3");
+	// Fin del script que agrega el efecto animate-rotate-left y animate-rotate-right a los elementos de la pagina luego de hacerles click a las cards de los servicios.
+
+</script>

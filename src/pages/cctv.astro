@@ -1,174 +1,138 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import '@fontsource/dela-gothic-one';
 ---
 
 <Layout title="Vic Seguridad - CCTV.">
-        <main class="min-h-screen text-white bg-gradient-to-b from-[#13171C] to-[#0d1b2ac9]">
+        <main class="min-h-screen text-white bg-gradient-to-b from-[#0D1A28] to-[#0d1b2ac9] snap-y snap-mandatory">
                 
-                <h1 class="text-3xl md:text-5xl font-bold text-center pt-32">
+                <h1 class="text-5xl 2xl:text-6xl text-center pt-48 ">
                         Cámaras de seguridad CCTV
                 </h1>
 
-                <section class="w-full flex flex-row items-center justify-between h-[450px] gap-10 px-20 mt-16 bg-white">
+                <section class="w-full flex flex-row items-center justify-between h-[55vh] gap-10 md:px-20 mt-16 bg-white">
                 
                         <div class="flex flex-col items-center text-[#13171C] text-left">
-                                <h1 class="text-4xl text-bold py-4 w-full">
+                                <h1 class="2xl:text-4xl text-2xl text-bold py-4 w-full">
                                         <strong> No pierdas de vista lo que mas te importa. </strong>
                                 </h1>
 
-                                <p class="m-5 mt-0 py-3 text-2xl w-full">
+                                <p class="m-5 mt-0 py-3 2xl:text-2xl w-full">
                                         Hacemos instalaciones de camaras de seguridad de alta resolucion para exteriores e interiores dependiendo de sus necesidades. Si usted necesita proteger su negocio o si simplemente quiere darle seguridad a su familia instalando nuestros sistemas en su hogar, no dude en contactarse con nosotros. Somos VIC Seguridad, preocupados por su tranquilidad.
                                 </p>
 
                                 <a href="/contacto">
-                                        <button class="text-lg justify-center text-center border-2 border-[#13171C] shadow-lg rounded-lg mb-8 p-2 hover:bg-[#13171C] hover:text-white transition-all">Consulta por el servicio</button>
+                                        <button class="xl:text-lg justify-center text-center border-2 border-[#13171C] shadow-lg rounded-lg mb-8 p-2 hover:bg-[#0D1A28] hover:text-white transition-all">Consulta por el servicio</button>
                                 </a>
                         </div>
                         
-                        <div class="h-[450px] items-center overflow-clip flex">
-                                <img class="h-[1000px] w-[3000px]" src="/images/services/camara.jpg" alt="">
+                        <div class="h-full items-center overflow-clip flex">
+                                <img class="w-[150vw]" src="/images/services/cctv/camara.jpg" alt="">
                         </div>                        
                 </section>
 
-                <section class="w-full flex flex-row gap-52 px-20 pt-16 text-pretty justify-center bg-gradient-to-b from-[#2c2c2e] to-[#0d1b2ac9]">
+                <span class="flex flex-col items-center text-center mt-28 mb-14 ">
+                        <h1 class="text-4xl/tight 2xl:text-6xl/tight">Todo lo que necesitas saber <br> sobre nuestras cámaras de seguridad</h1>
+                </span>
 
-                        <button id="bubble1" class="relative h-[400px] w-[400px] bg-[url(/images/monitoreo.jpg)] bg-cover bg-center rounded-full content-center text-center md:text-6xl transition-all duration-500">
+                <section class="w-full flex md:flex-row flex-xol md:px-40 px-10 pt-14 mb-28 text-pretty md:justify-between ">
+
+
+                        <button id="bubble1" class="relative md:w-[23vw] w-[50vw] aspect-square bg-[url(/images/services/cctv/monitoreo.jpg)] bg-cover bg-center rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
                                 <span id="titulo" class="block">
-                                        <div class="absolute inset-0 bg-black/50 hover:bg-black/10 transition rounded-full"></div>
-                                        <div class="relative select-none pointer-events-none justify-center flex flex-col h-full font-bold">
-                                                ¿Qué es?
-                                                <!-- <img class="h-36" src="icon/arrow-right.svg" alt=""> -->
+                                        <div class="absolute inset-0 bg-black/50 transition rounded-full"></div>
+                                        <div class="relative select-none pointer-events-none justify-center flex flex-col h-full">
+                                                <h2>¿Qué es?</h2>
                                         </div>
                                 </span>
                                 <span id="info" class="hidden">
                                         <div class="absolute inset-0 bg-black/70 transition rounded-full"></div>
-                                        <div class="relative select-none pointer-events-none  max-h-full overflow-clip">
-                                                <p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);">CCTV (Circuito Cerrado de Televisión) es un sistema de cámaras conectadas que permite monitorear y grabar espacios en tiempo real.</p>
+                                        <div class="relative select-none pointer-events-none items-center max-h-full px-10 overflow-clip">
+                                                <p class="text-3xl text-wrap font-semibold" style="transform: rotateY(180deg);">CCTV (Circuito Cerrado de Televisión) es un sistema de <span class="text-blue-500 text-bold">cámaras</span> conectadas que permite <span class="text-blue-500 text-bold">monitorear</span> y <span class="text-blue-500 text-bold">grabar</span> espacios en tiempo real.</p>
                                         </div>
                                 </span>
                         </button>
 
-                        <button id="bubble2" class="relative h-[400px] w-[400px] bg-[url(/images/robo.jpg)] bg-cover  rounded-full content-center text-center md:text-6xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
+                        <button id="bubble2" class="relative w-[23vw] aspect-square bg-[url(/images/services/cctv/robo.jpg)] bg-cover  rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
                                 <span id="titulo2" class="block">
                                         <div class="absolute inset-0 bg-black/50  transition rounded-full"></div>
-                                        <div class="relative select-none pointer-events-none justify-center flex flex-col h-full font-bold">
-                                                Utilidad
-                                                <!-- <img class="h-36" src="icon/arrow-right.svg" alt=""> -->
+                                        <div class="relative select-none pointer-events-none justify-center flex flex-col h-full">
+                                                <h2>Utilidad</h2>
                                         </div>
                                 </span>
                                 <span id="info2" class="hidden">
                                         <div class="absolute inset-0 bg-black/70 transition rounded-full"></div>
-                                        <div class="relative select-none pointer-events-none  max-h-full overflow-clip">
-                                                <p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);">Ideal para vigilar, prevenir robos y controlar accesos, mejorando la seguridad de hogares, negocios y espacios públicos.</p>
+                                        <div class="relative select-none pointer-events-none  max-h-full px-10 overflow-clip">
+                                                <p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);">Ideal para <span class="text-blue-500">vigilar</span>, <span class="text-blue-500">prevenir robos</span> y <span class="text-blue-500">controlar accesos</span>, mejorando la seguridad de hogares, negocios y espacios públicos.</p>
+                                        </div>
+                                </span>
+                        </button>
+
+                        <button id="bubble3" class="relative w-[23vw] aspect-square bg-[url(/images/services/cctv/monitoreo-movil.jpg)] bg-cover bg-center rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
+                                <span id="titulo3" class="block">
+                                        <div class="absolute inset-0 bg-black/60  transition rounded-full"></div>
+                                        <div class="relative select-none pointer-events-none justify-center flex flex-col overflow-clip">
+                                                <h2>Beneficios</h2>
+                                        </div>
+                                </span>
+                                <span id="info3" class="hidden">
+                                        <div class="absolute inset-0 bg-black/80 transition rounded-full"></div>
+                                        <div class="relative select-none pointer-events-none  max-h-full px-10 overflow-clip">
+                                                <p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);"><span class="text-blue-500">Disuasión del delito</span>, evidencia en video, <span class="text-blue-500">monitoreo remoto</span> y mayor tranquilidad las 24 horas desde tu propio <span class="text-blue-500">dispositivo movil</span>.</p>
                                         </div>
                                 </span>
                         </button>
                 </section>
 
-                <section class="w-full flex flex-row text-pretty justify-center pb-20 bg-[#0d1b2ac9]">
+                <section class="w-full flex flex-row text-pretty justify-center pb-20">
                                 
-                        <button id="bubble3" class="relative h-[400px] w-[400px] bg-[url(/images/monitoreo-movil.jpg)] bg-cover bg-center rounded-full content-center text-center md:text-6xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
-                                <span id="titulo3" class="block">
-                                        <div class="absolute inset-0 bg-black/60  transition rounded-full"></div>
-                                        <div class="relative select-none pointer-events-none justify-center flex flex-col h-full font-bold">
-                                                Beneficios
-                                                <!-- <img class="h-24" src="icon/arrow-right.svg" alt=""> -->
-                                        </div>
-                                </span>
-                                <span id="info3" class="hidden">
-                                        <div class="absolute inset-0 bg-black/70 transition rounded-full"></div>
-                                        <div class="relative select-none pointer-events-none  max-h-full overflow-clip">
-                                                <p class="text-3xl font-semibold mx-4" style="transform: rotateY(180deg);">Disuasión del delito, evidencia en video, monitoreo remoto y mayor tranquilidad las 24 horas desde tu propio dispositivo movil.</p>
-                                        </div>
-                                </span>
-                        </button>
                 </section>
         </main>
 </Layout>
 
+<style>
+        h2{
+                font-family: 'Dela Gothic One', system-ui;
+        }
+</style>
+
 <script>
         // Aqui debe ir el script que agrega el efecto animate-rotate-left y animate-rotate-right a los elementos de la pagina luego de hacerles click a las cards de los servicios.
-        
-        const bubble1 = document.getElementById("bubble1");
-        const bubble2 = document.getElementById("bubble2");
-        const bubble3 = document.getElementById("bubble3");
+        function setupBubbleToggle(bubbleId, titleId, infoId) {
+                const bubble = document.getElementById(bubbleId);
+                const title = document.getElementById(titleId);
+                const info = document.getElementById(infoId);
 
-        const titulo = document.getElementById("titulo");
-        const titulo2 = document.getElementById("titulo2");
-        const titulo3 = document.getElementById("titulo3");
+                bubble.addEventListener("click", () => {
+                        const isActive = bubble.classList.contains("animate-flip-horizontal") &&
+                                title.classList.contains("animate-fade-out");
 
-        const info = document.getElementById("info");
-        const info2 = document.getElementById("info2");
-        const info3 = document.getElementById("info3");
-        
-        bubble1.addEventListener("click", () => {
-                if (bubble1.classList.contains("animate-flip-horizontal") && titulo.classList.contains("animate-fade-out")) {
-                        bubble1.classList.remove("animate-flip-horizontal");
-                        titulo.classList.remove("animate-fade-out");
-                        titulo.classList.remove("hidden");
+                        if (isActive) {
+                                bubble.classList.remove("animate-flip-horizontal");
+                                title.classList.remove("animate-fade-out", "hidden");
+                                info.classList.remove("animate-fade-in");
+                                info.classList.add("hidden");
+                        } else {
+                                bubble.classList.add("animate-flip-horizontal");
+                                title.classList.add("animate-fade-out");
+                                
+                                setTimeout(() => {
+                                        title.classList.add("hidden");
+                                }, 250);
+                                setTimeout(() => {
+                                        info.classList.add("animate-fade-in");
+                                        info.classList.remove("hidden");
+                                }, 500);
+                        }
 
-                        info.classList.remove("animate-fade-in");
-                        info.classList.add("hidden");
-                } else {
-                        bubble1.classList.add("animate-flip-horizontal");
-                        titulo.classList.add("animate-fade-out");
-                        
-                        setTimeout(() => {
-                                titulo.classList.add("hidden");
-                        }, 250);
-                        setTimeout(() => {
-                                info.classList.add("animate-fade-in");
-                                info.classList.remove("hidden");
-                        }, 500);
-                }
-                console.log("click en el bubble1")
-        });
+                        console.log(`click en ${bubbleId}`);
+                });
+        }
 
-        bubble2.addEventListener("click", () => {
-                if (bubble2.classList.contains("animate-flip-horizontal") && titulo2.classList.contains("animate-fade-out")) {
-                        bubble2.classList.remove("animate-flip-horizontal");
-                        titulo2.classList.remove("animate-fade-out");
-                        titulo2.classList.remove("hidden");
-
-                        info2.classList.remove("animate-fade-in");
-                        info2.classList.add("hidden");
-                } else {
-                        bubble2.classList.add("animate-flip-horizontal");
-                        titulo2.classList.add("animate-fade-out");
-                        
-                        setTimeout(() => {
-                                titulo2.classList.add("hidden");
-                        }, 250);
-                        setTimeout(() => {
-                                info2.classList.add("animate-fade-in");
-                                info2.classList.remove("hidden");
-                        }, 500);
-                }
-                console.log("click en el bubble2")
-        });
-
-        bubble3.addEventListener("click", () => {
-                if (bubble3.classList.contains("animate-flip-horizontal") && titulo3.classList.contains("animate-fade-out")) {
-                        bubble3.classList.remove("animate-flip-horizontal");
-                        titulo3.classList.remove("animate-fade-out");
-                        titulo3.classList.remove("hidden");
-
-                        info3.classList.remove("animate-fade-in");
-                        info3.classList.add("hidden");
-                } else {
-                        bubble3.classList.add("animate-flip-horizontal");
-                        titulo3.classList.add("animate-fade-out");
-                        
-                        setTimeout(() => {
-                                titulo3.classList.add("hidden");
-                        }, 250);
-                        setTimeout(() => {
-                                info3.classList.add("animate-fade-in");
-                                info3.classList.remove("hidden");
-                        }, 500);
-                }
-                console.log("click en el bubble3")
-        });
+        // Aplica a todas las burbujas
+        setupBubbleToggle("bubble1", "titulo", "info");
+        setupBubbleToggle("bubble2", "titulo2", "info2");
+        setupBubbleToggle("bubble3", "titulo3", "info3");
         // Fin del script que agrega el efecto animate-rotate-left y animate-rotate-right a los elementos de la pagina luego de hacerles click a las cards de los servicios.
 
 </script>
