@@ -6,14 +6,15 @@ import '@fontsource/dela-gothic-one';
 <Layout title="Vic Seguridad - CCTV.">
         <main class="min-h-screen text-white bg-gradient-to-b from-[#0D1A28] to-[#0d1b2ac9] snap-y snap-mandatory">
                 
-                <h1 class="text-5xl 2xl:text-6xl text-center pt-48 ">
+                <h1 class="text-3xl sm:text-5xl 2xl:text-6xl text-center sm:pt-48 pt-32 px-4">
                         Cámaras de seguridad CCTV
                 </h1>
 
-                <section class="w-full flex flex-row items-center justify-between h-[55vh] gap-10 md:px-20 mt-16 bg-white">
+                <section class="relative w-full flex flex-row items-center justify-between h-[55vh] gap-10 md:px-20 px-6 mt-16 bg-[url(/images/services/cctv/camara.jpg)] sm:bg-none bg-cover bg-center sm:bg-[white]">
+                        <div class="sm:hidden absolute inset-0 bg-black/70"></div>
                 
-                        <div class="flex flex-col items-center text-[#13171C] text-left">
-                                <h1 class="2xl:text-4xl text-2xl text-bold py-4 w-full">
+                        <div class="flex flex-col items-center sm:text-[#13171C] sm:text-left text-justify z-20">
+                                <h1 class="2xl:text-4xl text-2xl text-bold py-4 w-full text-left">
                                         <strong> No pierdas de vista lo que más te importa. </strong>
                                 </h1>
 
@@ -21,14 +22,14 @@ import '@fontsource/dela-gothic-one';
                                         Instalamos sistemas de cámaras de seguridad CCTV de alta resolución, adaptados a espacios interiores y exteriores según tus necesidades. Ya sea para proteger tu negocio o reforzar la seguridad de tu hogar y familia, en <strong>VIC Seguridad</strong> estamos comprometidos con tu tranquilidad. Consultanos y descubre cómo podemos ayudarte a estar más seguro.
                                 </p>
 
-                                <button class="xl:text-lg justify-center text-center border-2 border-[#13171C] shadow-lg rounded-lg mb-8 p-2 hover:bg-[#0D1A28] hover:text-white transition-all">
+                                <button class="xl:text-lg justify-center text-center border-2 sm:border-[#13171C] shadow-lg rounded-lg mb-8 p-2 sm:hover:bg-[#0D1A28] sm:hover:text-white hover:bg-[white] hover:text-[#13171C] transition-all">
                                         <a href="/contacto">
                                                 Consulta por el servicio
                                         </a>
                                 </button>
                         </div>
                         
-                        <div class="h-full items-center overflow-clip flex">
+                        <div class="h-full items-center overflow-clip sm:flex hidden">
                                 <img class="w-[150vw]" src="/images/services/cctv/camara.jpg" alt="">
                         </div>                        
                 </section>
@@ -37,7 +38,7 @@ import '@fontsource/dela-gothic-one';
                         <h1 class="text-4xl/tight 2xl:text-6xl/tight">Todo lo que necesitas saber <br> sobre nuestras cámaras de seguridad</h1>
                 </span>
 
-                <section class="w-full flex md:flex-row flex-xol md:px-40 px-10 pt-14 mb-28 text-pretty md:justify-between ">
+                <section class="w-full flex md:flex-row flex-col md:px-40 px-10 pt-14 mb-28 text-pretty md:justify-between justify-center gap-10">
 
 
                         <button id="bubble1" class="relative md:w-[23vw] w-[50vw] aspect-square bg-[url(/images/services/cctv/monitoreo.jpg)] bg-cover bg-center rounded-full content-center text-center 2xl:text-6xl text-3xl transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-slate-400">
