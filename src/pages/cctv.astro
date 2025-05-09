@@ -87,9 +87,29 @@ import '@fontsource/dela-gothic-one';
                         </button>
                 </section>
 
-                <section class="w-full flex flex-row text-pretty justify-center pb-20">
+                <section class="bg-white py-20 px-6 sm:px-12 text-black">
+                        <div class="max-w-4xl mx-auto bg-gray-100 p-8 rounded-lg shadow-lg">
+                                <h1 class="md:text-4xl text-2xl font-semibold mb-10">Cotiza tu instalación de cámaras CCTV</h1>
+                                <p class="text-lg mb-6 font-medium">Selecciona cuántas cámaras deseas instalar y obtén una estimación del costo total.</p>
                                 
+                                <div class="flex flex-col sm:flex-row items-center gap-4">
+                                        <label for="camQty" class="font-medium">Cantidad de cámaras:</label>
+                                        <input
+                                        id="camQty"
+                                        type="number"
+                                        min="1"
+                                        value="1"
+                                        class="border border-gray-300 rounded px-4 py-2 w-24"
+                                        />
+                                </div>
+                                
+                                <div class="mt-6 bg-white p-4 rounded">
+                                        <p class="text-lg font-semibold">Costo estimado:</p>
+                                        <p id="cotizacionTotal" class="text-2xl font-bold text-blue-600">$0</p>
+                                </div>
+                        </div>
                 </section>
+                        
         </main>
 </Layout>
 
@@ -138,4 +158,38 @@ import '@fontsource/dela-gothic-one';
         setupBubbleToggle("bubble3", "titulo3", "info3");
         // Fin del script que agrega el efecto animate-rotate-left y animate-rotate-right a los elementos de la pagina luego de hacerles click a las cards de los servicios.
 
+
+        // Script para la cotización de cámaras CCTV
+        const camQtyInput = document.getElementById('camQty');
+        const cotizacionTotal = document.getElementById('cotizacionTotal');
+
+        // Precios estimados
+        const precioCamara = 80000;         // por cámara
+        const precioConectores = 5000;      // por cámara
+        const precioCableado = 5000;        // por cámara
+        const precioManoObraBase = 100000;   // fijo
+        const precioManoObraPorCam = 8000;  // adicional por cámara
+
+        function calcularCosto() {
+                const cantidad = parseInt((camQtyInput as HTMLInputElement).value, 10) || 0;
+
+                // NVR depende de la cantidad (simplificado)
+                let precioNVR = 0;
+                if (cantidad <= 4) precioNVR = 10000;
+                else if (cantidad <= 8) precioNVR = 130000;
+                else if (cantidad <= 16) precioNVR = 180000;
+                else if (cantidad <= 32) precioNVR = 230000;
+
+                const total =
+                cantidad * (precioCamara + precioConectores + precioCableado + precioManoObraPorCam) +
+                precioNVR +
+                precioManoObraBase;
+
+                cotizacionTotal.textContent = `$${total.toLocaleString()}`;
+        }
+
+        camQtyInput.addEventListener('input', calcularCosto);
+
+        // Calcular al cargar
+        calcularCosto();
 </script>
