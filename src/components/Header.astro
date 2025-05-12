@@ -1,3 +1,7 @@
+---
+// import setupDropdownMenu from "../scripts/menu.js";
+---
+
 <header class="fixed flex w-full justify-between z-30 xl:px-20 px-2 md:text-lg text-md text-white bg-[#13171C]">
     <a class="flex items-center" href="/">
         
@@ -73,23 +77,23 @@
             border-bottom-color:black;
         }
     }
-    </style>
-    
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuToggle = document.getElementById("menuToggle");
-        const dropdownMenu = document.getElementById("dropdownMenu");
-    
-        menuToggle.addEventListener("click", function(event) {
-            //event.stopPropagation(); // Evita que el clic se propague al documento
-            dropdownMenu.classList.toggle("hidden");
+</style>
+
+<script >
+    const menuToggle = document.getElementById("menuToggle");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    if (menuToggle && dropdownMenu) {
+        menuToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        dropdownMenu.classList.toggle("hidden");
         });
-    
-        document.addEventListener("click", function(event) {
-            if (!menuToggle.contains(event.target as Node) && !dropdownMenu.contains(event.target as Node)) {
-                dropdownMenu.classList.add("hidden");
-            }
+
+        document.addEventListener("click", function (event) {
+        if (!menuToggle.contains(event.target as Node) && !dropdownMenu.contains(event.target as Node)) {
+            dropdownMenu.classList.add("hidden");
+        }
         });
-    });
-    </script>
+    }
+</script>
     
