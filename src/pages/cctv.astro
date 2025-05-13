@@ -46,16 +46,16 @@ import "@fontsource/dela-gothic-one";
                                 </p>
 
                                 <div class="flex flex-col sm:flex-row sm:gap-12 gap-4">
-                                        <a href="/contacto">
+                                        <a class="sm:mb-8" href="/contacto">
                                                 <button
-                                                        class="xl:text-lg justify-center text-center border-2 sm:border-[#13171C] shadow-lg rounded-lg sm:mb-8 p-2 sm:hover:bg-[#0D1A28] sm:hover:text-white hover:bg-[white] hover:text-[#13171C] transition-all"
+                                                        class="xl:text-lg justify-center text-center border-2 sm:border-[#13171C] shadow-lg rounded-lg p-2 sm:hover:bg-[#0D1A28] sm:hover:text-white hover:bg-[white] hover:text-[#13171C] transition-all"
                                                 >
                                                         Consulta por el servicio
                                                 </button>
                                         </a>
-                                        <a href="#cotiza-cctv">
+                                        <a class="mb-8" href="#cotiza-cctv">
                                                 <button
-                                                        class="xl:text-lg justify-center text-center border-2 sm:border-[#13171C] shadow-lg rounded-lg mb-8 p-2 sm:hover:bg-[#0D1A28] sm:hover:text-white hover:bg-[white] hover:text-[#13171C] transition-all min-w-[204px]"
+                                                        class="xl:text-lg justify-center text-center border-2 sm:border-[#13171C] shadow-lg rounded-lg  p-2 sm:hover:bg-[#0D1A28] sm:hover:text-white hover:bg-[white] hover:text-[#13171C] transition-all min-w-[204px]"
                                                 >
                                                         Cotiza tu instalación
                                                 </button>
@@ -302,14 +302,11 @@ import "@fontsource/dela-gothic-one";
                                         visita técnica
                                 </p>
 
-                                <button class="mt-6 w-full">
-                                        <a
-                                                href="#cotiza-cctv"
-                                                class="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
-                                        >
+                                <div class="w-full mt-6 flex justify-center">
+                                        <button id="pagarBtn" class=" bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">
                                                 Ir a pagar
-                                        </a>
-                                </button>
+                                        </button>
+                                </div>
                         </div>
                 </section>
         </main>
@@ -362,7 +359,7 @@ import "@fontsource/dela-gothic-one";
                 });
         }
 
-        // Aplica a todas las burbujas
+        // Se aplica a todas las burbujas
         setupBubbleToggle("bubble1", "titulo", "info");
         setupBubbleToggle("bubble2", "titulo2", "info2");
         setupBubbleToggle("bubble3", "titulo3", "info3");
@@ -371,7 +368,7 @@ import "@fontsource/dela-gothic-one";
         const camQtyInput = document.getElementById("camQty");
         const cotizacionTotal = document.getElementById("cotizacionTotal");
 
-        // Valores base
+        
         const precioCamaraExtra = 80000; // por cámara adicional
 
         function calcularCosto() {
@@ -414,7 +411,48 @@ import "@fontsource/dela-gothic-one";
                 cotizacionTotal.textContent = totalFormateado;
         }
 
-        // Listeners
+        
         camQtyInput.addEventListener("input", calcularCosto);
-        calcularCosto(); // cálculo inicial
+        calcularCosto(); 
+
 </script>
+
+<script type="module">
+  document.getElementById("pagarBtn").addEventListener("click", async () => {
+        
+         const amount = parseFloat(document.getElementById("cotizacionTotal").textContent.replace(/\./g, "").replace("$", ""));
+        
+         if (amount <= 0) {
+             alert("Por favor, selecciona una cantidad válida de cámaras.");
+             return;
+        }
+        
+
+    try {
+      const res = await fetch("/api/pagar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: amount, 
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        window.location.href = `${data.url}?token_ws=${data.token}`;
+      } else {
+        console.error("Error en el pago:", data);
+        alert(`Error: ${data.error || "Error al generar transacción"}`);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error("Error en la solicitud:", err);
+      alert("Error al procesar el pago. Intenta nuevamente.");
+      window.location.reload();
+    }
+  });
+</script>
+
+
