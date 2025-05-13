@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
     
     const buy_order = `orden_${Date.now()}`;
     const session_id = crypto.randomUUID();
-    const return_url = "https://localhost:4321/retorno"; 
+    const return_url = "http://localhost:4321/retorno"; 
 
     const tbkBody = {
       buy_order,
