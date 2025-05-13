@@ -325,33 +325,33 @@ import "@fontsource/dela-gothic-one";
                 const title = document.getElementById(titleId);
                 const info = document.getElementById(infoId);
 
-                bubble.addEventListener("click", () => {
+                bubble?.addEventListener("click", () => {
                         const isActive =
                                 bubble.classList.contains(
                                         "animate-flip-horizontal",
                                 ) &&
-                                title.classList.contains("animate-fade-out");
+                                title?.classList.contains("animate-fade-out");
 
                         if (isActive) {
                                 bubble.classList.remove(
                                         "animate-flip-horizontal",
                                 );
-                                title.classList.remove(
+                                title?.classList.remove(
                                         "animate-fade-out",
                                         "hidden",
                                 );
-                                info.classList.remove("animate-fade-in");
-                                info.classList.add("hidden");
+                                info?.classList.remove("animate-fade-in");
+                                info?.classList.add("hidden");
                         } else {
                                 bubble.classList.add("animate-flip-horizontal");
-                                title.classList.add("animate-fade-out");
+                                title?.classList.add("animate-fade-out");
 
                                 setTimeout(() => {
-                                        title.classList.add("hidden");
+                                        title?.classList.add("hidden");
                                 }, 250);
                                 setTimeout(() => {
-                                        info.classList.add("animate-fade-in");
-                                        info.classList.remove("hidden");
+                                        info?.classList.add("animate-fade-in");
+                                        info?.classList.remove("hidden");
                                 }, 500);
                         }
 
@@ -381,6 +381,7 @@ import "@fontsource/dela-gothic-one";
                 let packIncluyeCamaras = 1;
 
                 if (cantidad <= 0) {
+                        if (cotizacionTotal)
                         cotizacionTotal.textContent = "$0";
                         return;
                 } else if (cantidad <= 4) {
@@ -393,6 +394,7 @@ import "@fontsource/dela-gothic-one";
                         packPrecio = 650000;
                 } else {
                         // Para más de 32 cámaras, no hay pack definido
+                        if (cotizacionTotal)
                         cotizacionTotal.textContent =
                                 "Contáctanos para una cotización personalizada";
                         return;
@@ -408,11 +410,12 @@ import "@fontsource/dela-gothic-one";
                         currency: "CLP",
                 }).format(total);
 
+                if (cotizacionTotal)
                 cotizacionTotal.textContent = totalFormateado;
         }
 
         
-        camQtyInput.addEventListener("input", calcularCosto);
+        camQtyInput?.addEventListener("input", calcularCosto);
         calcularCosto(); 
 
 </script>
