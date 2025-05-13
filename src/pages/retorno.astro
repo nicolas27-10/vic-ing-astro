@@ -1,0 +1,71 @@
+---
+var status = '';
+var detalle = '';
+---
+<html>
+  <head>
+    <title>Resultado del Pago</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body style="font-family:'Montserrat',sans-serif;text-align:center;margin-top:50px;background:linear-gradient(135deg,#e0e7ff 0%,#f8fafc 100%);min-height:100vh;">
+    <div id="resultado" set:html={detalle || 'Procesando pago...'} style="max-width:600px;margin:0 auto;padding:2rem 1rem;background:white;border-radius:18px;box-shadow:0 4px 24px 0 #0001;"></div>
+    <script>
+      (async () => {
+        const params = new URLSearchParams(window.location.search);
+        const token_ws = params.get('token_ws');
+        var detalle = '';
+        if (!token_ws) {
+          
+          detalle = '<div style="color:#b91c1c;font-size:1.2em;font-weight:600;">No se recibió token de pago.<br>Serás redirigido al inicio...</div>' +
+            '<button onclick="window.location.href=\'/\'" style="margin-top:2rem;padding:0.7em 2em;font-size:1.1em;border-radius:8px;border:none;background:#2563eb;color:white;cursor:pointer;box-shadow:0 2px 8px #2563eb22;transition:background 0.2s;" onmouseover="this.style.background=\'#1d4ed8\'" onmouseout="this.style.background=\'#2563eb\'">Ir al inicio</button>';
+          document.getElementById('resultado').innerHTML = detalle;
+          setTimeout(() => window.location.href = '/', 2000);
+          return;
+        }
+        const formData = new FormData();
+        formData.append('token_ws', token_ws);
+        const res = await fetch('/api/retorno', { method: 'POST', body: formData });
+        const html = await res.text();
+        
+        const match = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (match) {
+          detalle = match[1];
+        } else {
+          detalle = html;
+        }
+        
+        const errorMatch = detalle.match(/"error_message"\s*:\s*"([^"]+)"/);
+        if (errorMatch) {
+          var mensaje = errorMatch[1];
+          if (mensaje.includes('aborted')) {
+            mensaje = 'La transacción fue cancelada o abortada. Si fue un error, puedes intentarlo nuevamente.';
+          }
+          detalle = `<h2 style='color:#b91c1c;font-size:2em;margin-bottom:0.5em;'>${mensaje}</h2>\n<div <button onclick=\"window.location.href='/'\" style=\"margin-top:2rem;padding:0.7em 2em;font-size:1.1em;border-radius:8px;border:none;background:#2563eb;color:white;cursor:pointer;box-shadow:0 2px 8px #2563eb22;transition:background 0.2s;\" onmouseover=\"this.style.background='#1d4ed8'\" onmouseout=\"this.style.background='#2563eb'\">Volver al inicio</button>` + detalle;
+          document.getElementById('resultado').innerHTML = detalle;
+          setTimeout(() => window.location.href = '/', 2000);
+          return;
+        }
+       
+        const successMatch = detalle.match(/Transacción exitosa/i);
+        if (successMatch) {
+          
+          var monto = '';
+          var montoMatch = detalle.match(/"amount"\s*:\s*(\d+)/);
+          if (montoMatch) {
+            monto = montoMatch[1];
+          }
+          var montoHtml = '';
+          if (monto) {
+            montoHtml = `<div style='font-size:1.1em;margin-bottom:1.5em;color:#2563eb;'>Monto pagado: <strong>$${Number(monto).toLocaleString('es-CL')}</strong></div>`;
+          }
+          detalle = `<h2 style='color:#16a34a;font-size:2em;margin-bottom:0.5em;'>¡Transacción exitosa!<br>Serás redirigido al inicio...</h2>\n<p style='font-size:1.2em;margin-bottom:1em;'>Tu pago fue procesado correctamente.</p>\n${montoHtml}<button onclick=\"window.location.href='/'\" style=\"margin-top:1rem;padding:0.7em 2em;font-size:1.1em;border-radius:8px;border:none;background:#2563eb;color:white;cursor:pointer;box-shadow:0 2px 8px #2563eb22;transition:background 0.2s;\" onmouseover=\"this.style.background='#1d4ed8'\" onmouseout=\"this.style.background='#2563eb'\">Volver al inicio</button>`;
+          document.getElementById('resultado').innerHTML = detalle;
+          setTimeout(() => window.location.href = '/', 6000);
+          return;
+        }
+        document.getElementById('resultado').innerHTML = detalle;
+      })();
+    </script>
+  </body>
+</html>
