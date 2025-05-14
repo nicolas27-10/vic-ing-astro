@@ -1,14 +1,115 @@
 ---
+import path from "path";
 import Layout from "../layouts/Layout.astro";
+import fs from "fs/promises";
+
+const DATA_PATH = path.resolve("src/data/servicios.json");
+
+let servicios = [];
+try {
+  const jsonData = await fs.readFile(DATA_PATH, "utf-8");
+  servicios = JSON.parse(jsonData);
+} catch (err) {
+  servicios = [];
+}
+
 ---
 
-<Layout title="VIC Seguridad - Administrar.">
+<Layout title="VIC Seguridad - Administrar Servicios.">
 
-    <section class="min-h-screen flex flex-col z-10">
-        <div class="mt-20">
-            <h1 class="text-white text-center text-3xl z-50">
-                Vista de Administrador.
-            </h1>
+    <main class="min-h-svh mx-auto bg-gray-300  items-center flex px-20">
+
+        <div class="flex items-center justify-center w-full bg-gray-100 rounded-md shadow p-16">
+            <section class="max-w-xl w-full h-fit">
+                <h1 class="text-2xl font-bold mb-4 text-center">Agregar Servicio</h1>
+                
+                <form method="POST" action="/api/agregar-servicio" class="space-y-4">
+                    <div>
+                        <label class="block font-medium">Nombre del Servicio</label>
+                        <input name="nombre" required class="w-full border px-3 py-2 rounded" />
+                    </div>
+                    
+                    <div>
+                        <label class="block font-medium">Descripción</label>
+                        <textarea name="descripcion" required class="w-full border px-3 py-2 rounded"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block font-medium">Precio Base</label>
+                        <input type="number" name="precioBase" min="0" required class="w-full border px-3 py-2 rounded" />
+                    </div>
+            
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Guardar Servicio</button>
+                </form>
+            </section>
+        
+            <section class="max-w-xl mx-auto w-full flex flex-col mt-10 p-10 h-fit justify-center items-center">
+                <h2 class="text-xl font-bold mb-3 text-center">Servicios existentes</h2>
+                <ul class="space-y-2 w-full">
+                    {servicios.map((servicio) => (
+                        <li class="p-3 bg-white border rounded">
+                    <strong>{servicio.nombre}</strong> – ${servicio.precioBase}<br />
+                    <small>{servicio.descripcion}</small>
+                    </li>
+                ))}
+                </ul>
+            </section>
         </div>
-    </section>
+
+        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+            <div class="bg-white p-6 rounded shadow-lg text-center">
+                <p id="modal-message" class="mb-4"></p>
+                <button id="close-modal" class="bg-blue-600 text-white px-4 py-2 rounded">Cerrar</button>
+            </div>
+        </div>
+    
+        
+    </main>
+
+
+    <script>
+        // Leer parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const mensaje = params.get("mensaje");
+        const tipo = params.get("tipo");
+
+        if (mensaje) {
+            const modal = document.getElementById("modal");
+            const modalMessage = document.getElementById("modal-message");
+            modalMessage.textContent = mensaje;
+
+            // Cambiar el estilo del modal según el tipo
+            if (tipo === "exito") {
+                modalMessage.classList.add("text-green-600");
+            } else if (tipo === "error") {
+                modalMessage.classList.add("text-red-600");
+            }
+
+            modal.classList.remove("hidden");
+
+            // Cerrar el modal al hacer clic en el botón
+            document.getElementById("close-modal").addEventListener("click", () => {
+                modal.classList.add("hidden");
+                window.history.replaceState({}, document.title, "/admin"); // Elimina los parámetros de la URL
+            });
+        }
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        #modal {
+            display: flex;
+        }
+
+        .text-green-600 {
+            color: #4caf50;
+        }
+
+        .text-red-600 {
+            color: #f44336;
+        }
+    </style>
 </Layout>
