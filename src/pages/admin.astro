@@ -56,7 +56,7 @@ try {
             </section>
         </div>
 
-        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div id="modal" class="hidden absolute inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg text-center">
                 <p id="modal-message" class="mb-4"></p>
                 <button id="close-modal" class="bg-blue-600 text-white px-4 py-2 rounded">Cerrar</button>
@@ -73,9 +73,10 @@ try {
         const mensaje = params.get("mensaje");
         const tipo = params.get("tipo");
 
+        const modal = document.getElementById("modal");
+        const modalMessage = document.getElementById("modal-message");
+
         if (mensaje) {
-            const modal = document.getElementById("modal");
-            const modalMessage = document.getElementById("modal-message");
             modalMessage.textContent = mensaje;
 
             // Cambiar el estilo del modal según el tipo
@@ -85,31 +86,25 @@ try {
                 modalMessage.classList.add("text-red-600");
             }
 
-            modal.classList.remove("hidden");
+            // modal.classList.remove("hidden");
+            modal.classList.add("flex");
 
             // Cerrar el modal al hacer clic en el botón
-            document.getElementById("close-modal").addEventListener("click", () => {
+            const closeModal = document.getElementById("close-modal");
+            closeModal.addEventListener("click", () => {
                 modal.classList.add("hidden");
+                modal.classList.remove("flex");
                 window.history.replaceState({}, document.title, "/admin"); // Elimina los parámetros de la URL
+            });
+            // Cerrar el modal al hacer clic fuera de él
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.classList.add("hidden");
+                    modal.classList.remove("flex");
+                    window.history.replaceState({}, document.title, "/admin"); // Elimina los parámetros de la URL
+                }
             });
         }
     </script>
 
-    <style>
-        .hidden {
-            display: none;
-        }
-
-        #modal {
-            display: flex;
-        }
-
-        .text-green-600 {
-            color: #4caf50;
-        }
-
-        .text-red-600 {
-            color: #f44336;
-        }
-    </style>
 </Layout>
