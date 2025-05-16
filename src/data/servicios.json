@@ -1,17 +1,7 @@
 [
   {
     "nombre": "Video Portero",
-    "descripcion": "video portero",
-    "precioBase": 300000
-  },
-  {
-    "nombre": "Video Portero",
-    "descripcion": "video portero",
-    "precioBase": 300000
-  },
-  {
-    "nombre": "Video Portero",
-    "descripcion": "video portero",
-    "precioBase": 300000
+    "descripcion": "Video portero de alta fidelidad con camara infraroja para optimizar al maximo la visualizacion por las noches en zonas oscuras. Cuenta con conectividad remota con tu dispositivo movil para que puedas saber se encuentra fuera de tu hogar con la posibilidad de registrar todas las visitas.",
+    "precioBase": 200000
   }
 ]
