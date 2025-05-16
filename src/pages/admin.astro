@@ -17,11 +17,11 @@ try {
 
 <Layout title="VIC Seguridad - Administrar Servicios.">
 
-    <main class="min-h-svh mx-auto bg-gray-300  items-center flex px-20">
+    <main class="min-h-svh mx-auto bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 items-center flex px-20 pt-32 pb-20">
 
-        <div class="flex items-center justify-center w-full bg-gray-100 rounded-md shadow p-16">
-            <section class="max-w-xl w-full h-fit">
-                <h1 class="text-2xl font-bold mb-4 text-center">Agregar Servicio</h1>
+        <div class="flex flex-col items-center justify-center max-w-5xl w-full mx-auto bg-gray-100 rounded-md shadow p-16">
+            <section class="w-full h-fit">
+                <h1 class="text-2xl md:text-4xl font-bold mb-4 md:mb-8 text-center">Agregar Servicio</h1>
                 
                 <form method="POST" action="/api/agregar-servicio" class="space-y-4">
                     <div>
@@ -39,26 +39,46 @@ try {
                         <input type="number" name="precioBase" min="0" required class="w-full border px-3 py-2 rounded" />
                     </div>
             
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Guardar Servicio</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Guardar Servicio</button>
                 </form>
             </section>
         
-            <section class="max-w-xl mx-auto w-full flex flex-col mt-10 p-10 h-fit justify-center items-center">
-                <h2 class="text-xl font-bold mb-3 text-center">Servicios existentes</h2>
-                <ul class="space-y-2 w-full">
-                    {servicios.map((servicio) => (
-                        <li class="p-3 bg-white border rounded">
-                    <strong>{servicio.nombre}</strong> – ${servicio.precioBase}<br />
-                    <small>{servicio.descripcion}</small>
-                    </li>
-                ))}
+            <section class="mx-auto w-full flex flex-col mt-16 h-fit justify-center items-center">
+                {servicios.length === 0 && (
+                    <h2 class="text-xl md:text-3xl font-bold mb-3 text-center">Aun no hay servicios disponibles.</h2>
+                )}
+                {servicios.length > 0 && (
+                    <h2 class="text-xl md:text-3xl font-bold mb-3 text-center">Servicios disponibles: {servicios.length}</h2>
+                )}
+                <ul class="space-y-2 w-full mt-5">
+                    {servicios.map((servicio) => {
+                        const precioFormateado = new Intl.NumberFormat("es-CL").format(servicio.precioBase);
+                        return (
+                            <li class="p-6 bg-white border rounded w-full shadow-md">
+                                <div class="flex justify-between items-center">
+                                    <span class="flex flex-col">
+                                        <strong class="text-2xl font-semibold">{servicio.nombre}</strong> 
+                                        <small class="text-lg mt-2 mr-8">{servicio.descripcion}</small>
+                                    </span>
+                                    <div class="text-center">
+                                        <span class="font-bold text-2xl">${precioFormateado}</span>
+                                        <div class="flex justify-end space-x-2 mt-2">
+                                            <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition" id={servicio.nombre}>Editar</button>
+                                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" id={servicio.nombre}>Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })} 
                 </ul>
             </section>
         </div>
 
         <div id="modal" class="hidden absolute inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg text-center">
-                <p id="modal-message" class="mb-4"></p>
+                <h1 class="font-semibold text-2xl mb-4">¡Atencion!</h1>
+                <p id="modal-message" class="mb-4 text-xl"></p>
                 <button id="close-modal" class="bg-blue-600 text-white px-4 py-2 rounded">Cerrar</button>
             </div>
         </div>
@@ -68,7 +88,15 @@ try {
 
 
     <script>
-        // Leer parámetros de la URL
+            // Extender la interfaz de Window para incluir editarServicio
+            declare global {
+                interface Window {
+                    editarServicio: (id: string) => void;
+                    eliminarServicio: (id: string) => void;
+                }
+            }
+    
+            // Leer parámetros de la URL
         const params = new URLSearchParams(window.location.search);
         const mensaje = params.get("mensaje");
         const tipo = params.get("tipo");
@@ -86,7 +114,8 @@ try {
                 modalMessage.classList.add("text-red-600");
             }
 
-            // modal.classList.remove("hidden");
+            // Mostrar el modal
+            modal.classList.remove("hidden");
             modal.classList.add("flex");
 
             // Cerrar el modal al hacer clic en el botón
@@ -96,6 +125,7 @@ try {
                 modal.classList.remove("flex");
                 window.history.replaceState({}, document.title, "/admin"); // Elimina los parámetros de la URL
             });
+
             // Cerrar el modal al hacer clic fuera de él
             window.addEventListener("click", (event) => {
                 if (event.target === modal) {
@@ -105,6 +135,53 @@ try {
                 }
             });
         }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Attach event listeners to "Eliminar" buttons
+            const btnEliminarServicio = document.querySelectorAll("button.bg-red-600");
+            console.log(btnEliminarServicio);
+            // Iterate over each button and attach the event listener   
+            btnEliminarServicio.forEach((btn) => {
+                console.log(btn);
+                btn.addEventListener("click", async (event) => {
+                    const id = btn.getAttribute("id"); // Retrieve the data-id attribute
+                    console.log(id);
+                    // Check if the ID is valid
+                    if (!id) {
+                        alert("No se pudo obtener el ID del servicio.");
+                        return;
+                    }
+                    const confirmar = confirm("¿Estás seguro de que deseas eliminar este servicio?");
+                    if (confirmar) {
+                        try {
+                            const response = await fetch(`/api/eliminar-servicio?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+                            if (response.ok) {
+                                alert("Servicio eliminado con éxito.");
+                                window.location.reload();
+                            } else {
+                                alert("Error al eliminar el servicio.");
+                            }
+                        } catch (error) {
+                            alert("Ocurrió un error al intentar eliminar el servicio.");
+                        }
+                    }
+                });
+            });
+
+            // Attach event listeners to "Editar" buttons
+            const btnEditarServicio = document.querySelectorAll("button.bg-yellow-500");
+            btnEditarServicio.forEach((btn) => {
+                btn.addEventListener("click", (event) => {
+                    const id = btn.getAttribute("data-id"); // Retrieve the data-id attribute
+                    if (!id) {
+                        alert("No se pudo obtener el ID del servicio.");
+                        return;
+                    }
+                    // Redirect to the edit page with the ID in the query string
+                    window.location.href = `/editar-servicio?id=${encodeURIComponent(id)}`;
+                });
+            });
+        });
     </script>
 
 </Layout>
