@@ -216,6 +216,8 @@ try {
                     }
 
                     console.log("ID del servicio a editar:", id); // Debugging line
+                    editModal.classList.remove("hidden");
+                    editModal.classList.add("flex");
                     const servicio = servicios.find((s) => s.nombre === id);
                     console.log("Servicio encontrado:", servicio); // Debugging line
                     console.log("Servicios disponibles:", servicios); // Debugging line
@@ -230,8 +232,6 @@ try {
                     editDescripcion.value = servicio.descripcion;
                     editPrecioBase.value = servicio.precioBase.toString();
 
-                    editModal.classList.remove("hidden");
-                    editModal.classList.add("flex");
                 });
             });
 
