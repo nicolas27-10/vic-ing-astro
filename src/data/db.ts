@@ -2,9 +2,9 @@ import mysql from "mysql2/promise";
 
 export const db = await mysql.createPool({
   host: "localhost",        // o la IP/host de tu servidor
-  user: "c2820694_vicdb",
-  password: "geVU17mude",
-  database: "c2820694_vicdb",
+  user: "root",
+  password: "",
+  database: "vicdb",
 });
 
 try {
