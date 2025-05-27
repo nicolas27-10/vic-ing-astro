@@ -23,7 +23,7 @@ try {
 
 <Layout title="VIC Seguridad - Administrar Servicios.">
 
-    <main class="min-h-svh mx-auto bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 items-center flex px-20 pt-32 pb-20">
+    <main class="min-h-svh mx-auto bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 items-center flex px-20 pt-32 pb-20 relative">
 
         <div class="flex flex-col items-center justify-center max-w-5xl w-full mx-auto bg-gray-100 rounded-md shadow p-16">
             <section class="w-full h-fit">
@@ -42,7 +42,7 @@ try {
                     
                     <div>
                         <label class="block font-medium">Precio Base</label>
-                        <input type="number" name="precioBase" min="0" required class="w-full border px-3 py-2 rounded" />
+                        <input type="number" name="precio" min="0" required class="w-full border px-3 py-2 rounded" />
                     </div>
             
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Guardar Servicio</button>
@@ -90,7 +90,7 @@ try {
         </div>
     
         <!-- Modal for editing a service -->
-        <div id="edit-modal" class="absolut hidden inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div id="edit-modal" class="absolute hidden inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg w-96">
                 <h2 class="text-2xl font-bold mb-4 text-center">Editar Servicio</h2>
                 <form id="edit-service-form" class="space-y-4">
