@@ -7,9 +7,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     const nombre = formData.get("nombre")?.toString().trim();
     const descripcion = formData.get("descripcion")?.toString().trim();
-    const precioBase = parseInt(formData.get("precioBase") as string, 10);
+    const precio = parseInt(formData.get("precio") as string, 10);
 
-    if (!nombre || !descripcion || isNaN(precioBase)) {
+    if (!nombre || !descripcion || isNaN(precio)) {
       return new Response(null, {
         status: 302,
         headers: {
@@ -35,8 +35,8 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Insertar nuevo servicio
     await db.execute(
-      "INSERT INTO servicios (nombre, descripcion, precio) VALUES (?, ?, ?)",
-      [nombre, descripcion, precioBase]
+      "INSERT INTO servicios (nombre, descripcion, precioBase) VALUES (?, ?, ?)",
+      [nombre, descripcion, precio]
     );
 
     return new Response(null, {
