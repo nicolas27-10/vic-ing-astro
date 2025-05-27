@@ -1,3 +1,49 @@
+# Como iniciar el proyecto.
+Primero debes asegurarte de que tengas NodeJS instalado en tu PC.
+Si no lo tienes, instalalo desde la pagina oficial.
+https://nodejs.org/en/download
+
+Luego debes asegurarte de tener instalado Git tambien, si no lo tienes instalalo desde la pagina oficial.
+https://git--scm-com.translate.goog/downloads?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
+
+Una vez tengas todo instalado sigue los pasos.
+
+Copia el link del repositorio
+```sh
+https://github.com/nicolas27-10/vic-ing-astro.git
+```
+Abre el simbolo de sistema desde la busqueda de windows o presiona Windows + R, escribe CMD y presiona ENTER.
+
+Luego copia el repositorio en tu PC con el siguiente comando
+```sh
+git clone https://github.com/nicolas27-10/vic-ing-astro.git
+```
+
+Se copiara la carpeta del repositorio, por lo que debes cambiar el directorio en el cual estas trabajando en el CMD. Usa el siguiente comando
+```sh
+cd vic-ing-astro
+```
+
+Una vez en el directorio, deberas instalar las dependencias con
+```sh
+npm install
+```
+
+Abre la carpeta desde un editor de codigo como por ejemplo Visual Studio Code. puedes abrirlo desde el CMD en VS Code con
+```sh
+code .
+```
+
+Por ultimo, para iniciar el proyecto debes ejecutar el siguiente comando en la consola
+```sh
+npm run dev
+```
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
 # Astro Starter Kit: Basics
 
 ```sh
