@@ -1,23 +1,12 @@
 ---
-import path from "path";
 import Layout from "../layouts/Layout.astro";
-import fs from "fs/promises";
+import { db } from "../data/db";
 
 /// <reference types="astro/client" />
 
-const DATA_PATH = path.resolve("src/data/servicios.json");
+const [rows] = await db.query("SELECT * FROM servicios");
 
-let servicios = [];
-
-try {
-  const jsonData = await fs.readFile(DATA_PATH, "utf-8");
-  servicios = JSON.parse(jsonData);
-  
-} catch (err) {
-  servicios = [];
-}
-
-
+const servicios = rows as any[];
 
 ---
 
@@ -69,8 +58,8 @@ try {
                                     <div class="text-center">
                                         <span class="font-bold text-2xl">${precioFormateado}</span>
                                         <div class="flex justify-end space-x-2 mt-2">
-                                            <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition" id={servicio.nombre}>Editar</button>
-                                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" id={servicio.nombre}>Eliminar</button>
+                                            <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition" id={servicio.id}>Editar</button>
+                                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" id={servicio.id}>Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -116,15 +105,34 @@ try {
     </main>
 
 
+    <script type="application/json" id="servicios-data">
+        {JSON.stringify(servicios)}
+    </script>
+
+    <script>
+        // Asegúrate de que se ejecute solo cuando el DOM esté listo
+        window.addEventListener("DOMContentLoaded", () => {
+            const raw = document.getElementById("servicios-data")?.textContent;
+            if (!raw) return console.error("No se encontró el script con los datos de servicios.");
+
+            try {
+            window.servicios = JSON.parse(raw);
+            console.log("Servicios cargados en window:", window.servicios);
+            } catch (e) {
+            console.error("Error al parsear servicios:", e);
+            }
+        });
+    </script>
+
     <script>
             // Extender la interfaz de Window para incluir editarServicio y servicios
-            declare global {
-                interface Window {
-                    editarServicio: (id: string) => void;
-                    eliminarServicio: (id: string) => void;
-                    
-                }
+        declare global {
+            interface Window {
+                editarServicio: (id: string) => void;
+                eliminarServicio: (id: string) => void;
+                servicios: { id: string; nombre: string; descripcion: string; precioBase: number }[];
             }
+        }
     
             // Leer parámetros de la URL
         const params = new URLSearchParams(window.location.search);
@@ -166,6 +174,7 @@ try {
             });
         }
 
+        
         document.addEventListener("DOMContentLoaded", () => {
             // Attach event listeners to "Eliminar" buttons
             const btnEliminarServicio = document.querySelectorAll("button.bg-red-500");
@@ -184,6 +193,7 @@ try {
                                 alert("Servicio eliminado con éxito.");
                                 window.location.reload();
                             } else {
+                                console.error("Error al eliminar el servicio:", response.statusText);
                                 alert("Error al eliminar el servicio.");
                             }
                         } catch (error) {
@@ -196,7 +206,6 @@ try {
 
 
             
-            // Attach event listeners to "Editar" buttons
             const btnEditarServicio = document.querySelectorAll("button.bg-yellow-500");
             const editModal = document.getElementById("edit-modal");
             const editForm = document.getElementById("edit-service-form");
@@ -208,73 +217,70 @@ try {
             let currentServiceId: string | null = null;
 
             btnEditarServicio.forEach((btn) => {
-                btn.addEventListener("click", (event) => {
-                    const id = btn.getAttribute("id"); // Retrieve the id attribute
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("id"); // id del servicio
+                    console.log("ID del servicio a editar:", id);
+
                     if (!id) {
                         alert("No se pudo obtener el ID del servicio.");
                         return;
                     }
 
-                    console.log("ID del servicio a editar:", id); // Debugging line
-                    editModal.classList.remove("hidden");
-                    editModal.classList.add("flex");
-                    const servicio = servicios.find((s) => s.nombre === id);
-                    console.log("Servicio encontrado:", servicio); // Debugging line
-                    console.log("Servicios disponibles:", servicios); // Debugging line
+                    console.log("Servicios disponibles:", window.servicios); 
+                    const servicio = window.servicios.find((s) => s.id.toString() === id);
+                    console.log("Servicio encontrado:", servicio);
                     if (!servicio) {
                         alert("No se encontró el servicio.");
                         return;
                     }
 
-                    // Populate the modal with the service's current data
                     currentServiceId = id;
                     editNombre.value = servicio.nombre;
                     editDescripcion.value = servicio.descripcion;
                     editPrecioBase.value = servicio.precioBase.toString();
 
+                    editModal.classList.remove("hidden");
+                    editModal.classList.add("flex");
                 });
             });
 
             cancelEdit.addEventListener("click", () => {
                 editModal.classList.add("hidden");
                 editModal.classList.remove("flex");
-                currentServiceId = null; // Reset the current service ID
+                currentServiceId = null;
             });
 
             editForm.addEventListener("submit", async (event) => {
                 event.preventDefault();
 
-                // Find the service in the array and update its properties
-                const servicioIndex = window.servicios.findIndex((s) => s.nombre === currentServiceId);
-                if (servicioIndex === -1) {
-                    alert("No se encontró el servicio para actualizar.");
+                if (!currentServiceId) {
+                    alert("No hay servicio seleccionado para editar.");
                     return;
                 }
 
                 const updatedServicio = {
-                    nombre: editNombre.value,
-                    descripcion: editDescripcion.value,
+                    id: currentServiceId,
+                    nombre: editNombre.value.trim(),
+                    descripcion: editDescripcion.value.trim(),
                     precioBase: parseInt(editPrecioBase.value, 10),
                 };
 
-                // Update the service in the array
-                window.servicios[servicioIndex] = updatedServicio;
-
                 try {
-                    // Send the updated array to the backend
                     const response = await fetch(`/api/editar-servicio`, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(window.servicios),
+                        body: JSON.stringify(updatedServicio),
                     });
 
                     if (response.ok) {
                         alert("Servicio actualizado con éxito.");
                         window.location.reload();
                     } else {
-                        alert("Error al actualizar el servicio.");
+                        const msg = await response.text();
+                        alert("Error al actualizar el servicio: " + msg);
                     }
                 } catch (error) {
+                    console.error(error);
                     alert("Ocurrió un error al intentar actualizar el servicio.");
                 }
             });
