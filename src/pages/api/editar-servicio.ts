@@ -7,6 +7,8 @@ export const PUT: APIRoute = async ({ request }) => {
 
     const { nombre, descripcion, precioBase, id } = servicioActualizado;
 
+    console.log("Datos recibidos para actualizar el servicio:", servicioActualizado);
+
     if (!nombre || !descripcion || typeof precioBase !== "number") {
       return new Response("Datos inválidos", { status: 400 });
     }

@@ -58,8 +58,22 @@ const servicios = rows as any[];
                                     <div class="text-center">
                                         <span class="font-bold text-2xl">${precioFormateado}</span>
                                         <div class="flex justify-end space-x-2 mt-2">
-                                            <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition" id={servicio.id}>Editar</button>
-                                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" id={servicio.id}>Eliminar</button>
+                                            <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition" 
+                                            id={servicio.id} 
+                                            data-nombre={servicio.nombre} 
+                                            data-descripcion={servicio.descripcion}
+                                            data-precio={servicio.precioBase}
+                                            >
+                                                Editar
+                                            </button>
+                                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" 
+                                            id={servicio.id}
+                                            data-nombre={servicio.nombre} 
+                                            data-descripcion={servicio.descripcion}
+                                            data-precio={servicio.precioBase}
+                                            >
+                                                Eliminar
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -105,32 +119,12 @@ const servicios = rows as any[];
     </main>
 
 
-    <script type="application/json" id="servicios-data">
-        {JSON.stringify(servicios)}
-    </script>
-
-    <script>
-        // Asegúrate de que se ejecute solo cuando el DOM esté listo
-        window.addEventListener("DOMContentLoaded", () => {
-            const raw = document.getElementById("servicios-data")?.textContent;
-            if (!raw) return console.error("No se encontró el script con los datos de servicios.");
-
-            try {
-            window.servicios = JSON.parse(raw);
-            console.log("Servicios cargados en window:", window.servicios);
-            } catch (e) {
-            console.error("Error al parsear servicios:", e);
-            }
-        });
-    </script>
-
     <script>
             // Extender la interfaz de Window para incluir editarServicio y servicios
         declare global {
             interface Window {
                 editarServicio: (id: string) => void;
                 eliminarServicio: (id: string) => void;
-                servicios: { id: string; nombre: string; descripcion: string; precioBase: number }[];
             }
         }
     
@@ -204,8 +198,11 @@ const servicios = rows as any[];
             });
 
 
-
+        });
             
+        let currentServiceId = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
             const btnEditarServicio = document.querySelectorAll("button.bg-yellow-500");
             const editModal = document.getElementById("edit-modal");
             const editForm = document.getElementById("edit-service-form");
@@ -214,33 +211,28 @@ const servicios = rows as any[];
             const editPrecioBase = document.getElementById("edit-precioBase") as HTMLInputElement;
             const cancelEdit = document.getElementById("cancel-edit");
 
-            let currentServiceId: string | null = null;
-
+            // Cuando se hace clic en "Editar"
             btnEditarServicio.forEach((btn) => {
                 btn.addEventListener("click", () => {
-                    const id = btn.getAttribute("id"); // id del servicio
-                    console.log("ID del servicio a editar:", id);
+                const id = btn.getAttribute("id");
+                if (!id) {
+                    alert("No se pudo obtener el ID del servicio.");
+                    return;
+                }
 
-                    if (!id) {
-                        alert("No se pudo obtener el ID del servicio.");
-                        return;
-                    }
+                currentServiceId = id; // Guardamos el ID para usarlo al guardar cambios
 
-                    console.log("Servicios disponibles:", window.servicios); 
-                    const servicio = window.servicios.find((s) => s.id.toString() === id);
-                    console.log("Servicio encontrado:", servicio);
-                    if (!servicio) {
-                        alert("No se encontró el servicio.");
-                        return;
-                    }
+                const nombre = btn.getAttribute("data-nombre") || "";
+                const descripcion = btn.getAttribute("data-descripcion") || "";
+                const precio = btn.getAttribute("data-precio") || "0";
 
-                    currentServiceId = id;
-                    editNombre.value = servicio.nombre;
-                    editDescripcion.value = servicio.descripcion;
-                    editPrecioBase.value = servicio.precioBase.toString();
+                // Mostrar modal vacío (el usuario debe rellenar los datos)
+                editNombre.value = nombre;
+                editDescripcion.value = descripcion;
+                editPrecioBase.value = precio;
 
-                    editModal.classList.remove("hidden");
-                    editModal.classList.add("flex");
+                editModal.classList.remove("hidden");
+                editModal.classList.add("flex");
                 });
             });
 
@@ -250,38 +242,39 @@ const servicios = rows as any[];
                 currentServiceId = null;
             });
 
+            // Enviar cambios al backend
             editForm.addEventListener("submit", async (event) => {
                 event.preventDefault();
 
                 if (!currentServiceId) {
-                    alert("No hay servicio seleccionado para editar.");
-                    return;
+                alert("No hay servicio seleccionado para editar.");
+                return;
                 }
 
                 const updatedServicio = {
-                    id: currentServiceId,
-                    nombre: editNombre.value.trim(),
-                    descripcion: editDescripcion.value.trim(),
-                    precioBase: parseInt(editPrecioBase.value, 10),
+                id: currentServiceId,
+                nombre: editNombre.value.trim(),
+                descripcion: editDescripcion.value.trim(),
+                precioBase: parseInt(editPrecioBase.value, 10),
                 };
 
                 try {
-                    const response = await fetch(`/api/editar-servicio`, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(updatedServicio),
-                    });
+                const response = await fetch(`/api/editar-servicio`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedServicio),
+                });
 
-                    if (response.ok) {
-                        alert("Servicio actualizado con éxito.");
-                        window.location.reload();
-                    } else {
-                        const msg = await response.text();
-                        alert("Error al actualizar el servicio: " + msg);
-                    }
+                if (response.ok) {
+                    alert("Servicio actualizado con éxito.");
+                    window.location.reload();
+                } else {
+                    const msg = await response.text();
+                    alert("Error al actualizar el servicio: " + msg);
+                }
                 } catch (error) {
-                    console.error(error);
-                    alert("Ocurrió un error al intentar actualizar el servicio.");
+                console.error(error);
+                alert("Ocurrió un error al intentar actualizar el servicio.");
                 }
             });
         });
