@@ -18,7 +18,7 @@ const servicios = rows as any[];
             <section class="w-full h-fit">
                 <h1 class="text-2xl md:text-4xl font-bold mb-4 md:mb-8 text-center">Agregar Servicio</h1>
                 
-                <form method="POST" action="/api/agregar-servicio" class="space-y-4">
+                <form method="POST" action="/api/agregar-servicio" enctype="multipart/form-data" class="space-y-4">
                     <div>
                         <label class="block font-medium">Nombre del Servicio</label>
                         <input name="nombre" required class="w-full border px-3 py-2 rounded" />
@@ -32,6 +32,11 @@ const servicios = rows as any[];
                     <div>
                         <label class="block font-medium">Precio Base</label>
                         <input type="number" name="precio" min="0" required class="w-full border px-3 py-2 rounded" />
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">Imagen</label>
+                        <input type="file" name="imagen" accept="image/*" class="py-2 rounded" />
                     </div>
             
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Guardar Servicio</button>
@@ -49,12 +54,17 @@ const servicios = rows as any[];
                     {servicios.map((servicio) => {
                         const precioFormateado = new Intl.NumberFormat("es-CL").format(servicio.precioBase);
                         return (
-                            <li class="p-6 bg-white border rounded w-full shadow-md">
+                            <li class="p-4 bg-white border rounded w-full shadow-md">
                                 <div class="flex justify-between items-center">
-                                    <span class="flex flex-col">
-                                        <strong class="text-2xl font-semibold">{servicio.nombre}</strong> 
-                                        <small class="text-lg mt-2 mr-8">{servicio.descripcion}</small>
-                                    </span>
+                                    <div class="flex items-center">
+                                        {servicio.imagen && (
+                                            <img src={servicio.imagen} alt={servicio.nombre} class="w-24 max-h-60 rounded-md mr-4" />
+                                        )}
+                                        <span class="flex flex-col">
+                                            <strong class="text-2xl font-semibold">{servicio.nombre}</strong> 
+                                            <small class="text-lg mt-2 mr-8">{servicio.descripcion}</small>
+                                        </span>
+                                    </div>
                                     <div class="text-center">
                                         <span class="font-bold text-2xl">${precioFormateado}</span>
                                         <div class="flex justify-end space-x-2 mt-2">
@@ -63,6 +73,7 @@ const servicios = rows as any[];
                                             data-nombre={servicio.nombre} 
                                             data-descripcion={servicio.descripcion}
                                             data-precio={servicio.precioBase}
+                                            data-imagen={servicio.imagen}
                                             >
                                                 Editar
                                             </button>
@@ -71,6 +82,7 @@ const servicios = rows as any[];
                                             data-nombre={servicio.nombre} 
                                             data-descripcion={servicio.descripcion}
                                             data-precio={servicio.precioBase}
+                                            data-imagen={servicio.imagen}
                                             >
                                                 Eliminar
                                             </button>
@@ -94,21 +106,33 @@ const servicios = rows as any[];
     
         <!-- Modal for editing a service -->
         <div id="edit-modal" class="absolute hidden inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
-            <div class="bg-white p-6 rounded shadow-lg w-96">
+            <div class="bg-white p-6 rounded shadow-lg text-wrap">
                 <h2 class="text-2xl font-bold mb-4 text-center">Editar Servicio</h2>
-                <form id="edit-service-form" class="space-y-4">
+                <form id="edit-service-form" class="space-y-4" enctype="multipart/form-data">
                     <div>
                         <label class="block font-medium">Nombre del Servicio</label>
                         <input id="edit-nombre" name="nombre" required class="w-full border px-3 py-2 rounded" />
                     </div>
+
                     <div>
                         <label class="block font-medium">Descripción</label>
                         <textarea id="edit-descripcion" name="descripcion" required class="w-full border px-3 py-2 rounded"></textarea>
                     </div>
+
                     <div>
                         <label class="block font-medium">Precio Base</label>
                         <input id="edit-precioBase" type="number" name="precioBase" min="0" required class="w-full border px-3 py-2 rounded" />
                     </div>
+
+                    <div>
+                        <label class="block font-medium">Imagen</label>
+                        <input id="edit-imagen" type="file" name="imagen" accept="image/*" class="py-2 rounded flex" />
+                        <div class="mt-2">
+                            <img id="edit-preview" src="" alt="Vista previa de imagen" class="max-h-40 rounded shadow hidden" />
+                            <input type="hidden" id="edit-imagen-actual" name="imagenActual" />
+                        </div>
+                    </div>
+
                     <div class="flex justify-end space-x-2">
                         <button type="button" id="cancel-edit" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">Cancelar</button>
                         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Guardar Cambios</button>
@@ -203,81 +227,106 @@ const servicios = rows as any[];
         let currentServiceId = null;
 
         document.addEventListener("DOMContentLoaded", () => {
-            const btnEditarServicio = document.querySelectorAll("button.bg-yellow-500");
-            const editModal = document.getElementById("edit-modal");
-            const editForm = document.getElementById("edit-service-form");
-            const editNombre = document.getElementById("edit-nombre") as HTMLInputElement;
-            const editDescripcion = document.getElementById("edit-descripcion") as HTMLTextAreaElement;
-            const editPrecioBase = document.getElementById("edit-precioBase") as HTMLInputElement;
-            const cancelEdit = document.getElementById("cancel-edit");
-
-            // Cuando se hace clic en "Editar"
-            btnEditarServicio.forEach((btn) => {
-                btn.addEventListener("click", () => {
-                const id = btn.getAttribute("id");
-                if (!id) {
-                    alert("No se pudo obtener el ID del servicio.");
-                    return;
-                }
-
-                currentServiceId = id; // Guardamos el ID para usarlo al guardar cambios
-
-                const nombre = btn.getAttribute("data-nombre") || "";
-                const descripcion = btn.getAttribute("data-descripcion") || "";
-                const precio = btn.getAttribute("data-precio") || "0";
-
-                // Mostrar modal vacío (el usuario debe rellenar los datos)
-                editNombre.value = nombre;
-                editDescripcion.value = descripcion;
-                editPrecioBase.value = precio;
-
-                editModal.classList.remove("hidden");
-                editModal.classList.add("flex");
-                });
-            });
-
-            cancelEdit.addEventListener("click", () => {
-                editModal.classList.add("hidden");
-                editModal.classList.remove("flex");
-                currentServiceId = null;
-            });
-
-            // Enviar cambios al backend
-            editForm.addEventListener("submit", async (event) => {
-                event.preventDefault();
-
-                if (!currentServiceId) {
-                alert("No hay servicio seleccionado para editar.");
+        const btnEditarServicio = document.querySelectorAll("button.bg-yellow-500");
+        const editModal = document.getElementById("edit-modal");
+        const editForm = document.getElementById("edit-service-form") as HTMLFormElement;
+        const editNombre = document.getElementById("edit-nombre") as HTMLInputElement;
+        const editDescripcion = document.getElementById("edit-descripcion") as HTMLTextAreaElement;
+        const editPrecioBase = document.getElementById("edit-precioBase") as HTMLInputElement;
+        const editImagen = document.getElementById("edit-imagen") as HTMLInputElement;
+        const editPreview = document.getElementById("edit-preview") as HTMLImageElement;
+        const cancelEdit = document.getElementById("cancel-edit");
+        const editImagenActual = document.getElementById("edit-imagen-actual") as HTMLInputElement;
+        
+        
+        // Cuando se hace clic en "Editar"
+        btnEditarServicio.forEach((btn) => {
+            btn.addEventListener("click", () => {
+            const id = btn.getAttribute("id");
+            if (!id) {
+                alert("No se pudo obtener el ID del servicio.");
                 return;
-                }
+            }
 
-                const updatedServicio = {
-                id: currentServiceId,
-                nombre: editNombre.value.trim(),
-                descripcion: editDescripcion.value.trim(),
-                precioBase: parseInt(editPrecioBase.value, 10),
-                };
+            currentServiceId = id;
 
-                try {
-                const response = await fetch(`/api/editar-servicio`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(updatedServicio),
-                });
+            const nombre = btn.getAttribute("data-nombre") || "";
+            const descripcion = btn.getAttribute("data-descripcion") || "";
+            const precio = btn.getAttribute("data-precio") || "0";
+            const imagen = btn.getAttribute("data-imagen") || "";
 
-                if (response.ok) {
-                    alert("Servicio actualizado con éxito.");
-                    window.location.reload();
-                } else {
-                    const msg = await response.text();
-                    alert("Error al actualizar el servicio: " + msg);
-                }
-                } catch (error) {
-                console.error(error);
-                alert("Ocurrió un error al intentar actualizar el servicio.");
-                }
+            editNombre.value = nombre;
+            editDescripcion.value = descripcion;
+            editPrecioBase.value = precio;
+
+            if (imagen) {
+                editPreview.src = imagen;
+                editPreview.classList.remove("hidden");
+            } else {
+                editPreview.classList.add("hidden");
+            }
+
+            editImagenActual.value = imagen;
+
+            editModal.classList.remove("hidden");
+            editModal.classList.add("flex");
             });
         });
+
+        cancelEdit.addEventListener("click", () => {
+            editModal.classList.add("hidden");
+            editModal.classList.remove("flex");
+            currentServiceId = null;
+            editForm.reset();
+            editPreview.classList.add("hidden");
+        });
+
+        // Vista previa de imagen al seleccionar una nueva
+        editImagen.addEventListener("change", () => {
+            const file = editImagen.files?.[0];
+            if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                editPreview.src = e.target?.result as string;
+                editPreview.classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+            }
+        });
+
+        // Enviar cambios al backend con FormData (incluyendo imagen)
+        editForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (!currentServiceId) {
+            alert("No hay servicio seleccionado para editar.");
+            return;
+            }
+
+
+            const formData = new FormData(editForm);
+            formData.append("id", currentServiceId);
+
+            try {
+            const response = await fetch(`/api/editar-servicio`, {
+                method: "PUT", // O PUT si tu backend lo requiere
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert("Servicio actualizado con éxito.");
+                window.location.reload();
+            } else {
+                const msg = await response.text();
+                alert("Error al actualizar el servicio: " + msg);
+            }
+            } catch (error) {
+            console.error(error);
+            alert("Ocurrió un error al intentar actualizar el servicio.");
+            }
+        });
+        });
+
     </script>
 
 </Layout>
