@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { db } from '../data/db';
+
+const [rows] = await db.query("SELECT * FROM servicios");
+
+const servicios = rows as any[];
+---
+
+<Layout title="VIC Ing y Seguridad.">
+	<main class="min-h-screen">
+        <section class=" bg-[url('/images/back/fondo-camara.jpg')] bg-cover bg-center min-h-80 flex items-center justify-center overflow-hidden relative">
+	        <div class="absolute inset-0 bg-black opacity-70"></div>
+            <h1 class="text-4xl md:text-6xl text-center text-white z-10 md:pt-24 md:pb-10 pt-14">Nuestros Servicios</h1>
+        </section>
+        <section>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-8 px-20 py-20 bg-gray-100">
+                {servicios.map((servicio) => {
+                    const precioFormateado = new Intl.NumberFormat("es-CL").format(servicio.precioBase);
+                    return (
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border max-h-72 bg-white rounded-lg shadow-lg ">
+                        <div class="p-6 flex flex-col justify-between">
+                            <div class="flex items-center mb-4">
+                                <!-- <Bug class="h-6 w-6 text-green-600 mr-2" /> -->
+                                <h2 class="text-2xl font-bold">{servicio.nombre}</h2>
+                            </div>
+                            <p class="text-black mb-4">
+                                {servicio.descripcion}
+                            </p>
+                            <h1 class="font-semibold text-xl">${precioFormateado}</h1>
+                            <a href="/contacto">
+                                <button class="border border-black hover:bg-black hover:text-white transition rounded-md py-2 px-4 w-fit">Solicitar presupuesto</button>
+                            </a>
+                        </div>
+                        <div class="bg-gray-100 rounded-r-lg overflow-hidden">
+                            <img
+                            src={servicio.imagen}
+                            alt={servicio.nombre}
+                            loading="lazy"
+                            class="w-full h-full object-cover"
+                            />
+                        </div>
+                    </div>
+                    
+                    );
+                })}
+            </ul>
+        </section>
+    </main>
+</Layout>
