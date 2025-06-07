@@ -5,7 +5,9 @@ import { db } from '../../data/db';
 export const POST: APIRoute = async ({ request, cookies }) => {
   const { username, password } = await request.json();
 
-
+  if (!username || !password) {
+    return new Response('Faltan credenciales', { status: 400 });
+  }
   const [rows]: any = await db.execute(
     'SELECT * FROM usuarios_admin WHERE username = ? LIMIT 1',
     [username]
@@ -23,11 +25,17 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   // Guardamos sesión simple en una cookie
-  cookies.set('admin_auth', 'true', {
+  cookies.set('admin_session', 'ok', {
     httpOnly: true,
     path: '/',
-    maxAge: 60 * 60 * 2, // 2 horas
+    sameSite: 'strict',
+    maxAge: 60 * 30, // 2 horas
   });
 
-  return new Response('OK', { status: 200 });
+  return new Response(null, {
+  status: 302,
+  headers: {
+    Location: '/admin',
+  },
+});
 };

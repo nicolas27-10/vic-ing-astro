@@ -4,6 +4,7 @@ import formidable, { IncomingForm } from "formidable";
 import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
+import { limpiarArchivosBasura } from "../../utils/limpiezaArchivos";
 
 // Desactiva el prerendering
 export const prerender = false;
@@ -39,6 +40,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     multiples: false,
     uploadDir,
     keepExtensions: true,
+    cleanup: true,
   });
 
   const compatibleReq = buildCompatibleRequest(request);
@@ -98,6 +100,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
         "INSERT INTO servicios (nombre, descripcion, precioBase, imagen) VALUES (?, ?, ?, ?)",
         [nombre, descripcion, precio, rutaImagen]
       );
+      limpiarArchivosBasura();
 
       return resolve(
         redirect("/admin?mensaje=Servicio agregado con imagen.&tipo=exito", 302)
