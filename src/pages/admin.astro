@@ -12,9 +12,9 @@ const servicios = rows as any[];
 
 <Layout title="VIC Seguridad - Administrar Servicios.">
 
-    <main class="min-h-svh mx-auto bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 items-center flex px-20 pt-32 pb-20 relative">
+    <main class="min-h-svh mx-auto bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 items-center flex xl:px-20 px-4 pt-32 pb-20 relative">
 
-        <div class="flex flex-col items-center justify-center max-w-5xl w-full mx-auto bg-gray-100 rounded-md shadow p-16">
+        <div class="flex flex-col items-center justify-center max-w-5xl w-full mx-auto bg-gray-100 rounded-md shadow xl:p-16 p-4">
             <section class="w-full h-fit">
                 <h1 class="text-2xl md:text-4xl font-bold mb-4 md:mb-8 text-center">Agregar Servicio</h1>
                 
@@ -34,9 +34,12 @@ const servicios = rows as any[];
                         <input type="number" name="precio" min="0" required class="w-full border px-3 py-2 rounded" />
                     </div>
 
-                    <div>
+                    <div class="overflow-auto">
                         <label class="block font-medium">Imagen</label>
-                        <input type="file" name="imagen" accept="image/*" class="py-2 rounded" />
+                        <input id="image-select" type="file" name="imagen" accept="image/*" class="py-2 rounded" />
+                    </div>
+                    <div class="mt-2">
+                        <img id="img-preview" src="" alt="Vista previa de imagen" class="max-h-40 rounded shadow hidden" />
                     </div>
             
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Guardar Servicio</button>
@@ -55,20 +58,20 @@ const servicios = rows as any[];
                         const precioFormateado = new Intl.NumberFormat("es-CL").format(servicio.precioBase);
                         return (
                             <li class="p-4 bg-white border rounded w-full shadow-md">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center">
+                                <div class="xl:flex xl:flex-row flex-col xl:justify-between items-center">
+                                    <div class="flex xl:flex-row flex-col items-center">
                                         {servicio.imagen && (
-                                            <img src={servicio.imagen} alt={servicio.nombre} class="w-24 max-h-60 rounded-md mr-4" />
+                                            <img src={servicio.imagen} alt={servicio.nombre} class="md:w-28 md:max-h-60 rounded-md md:mr-4 md:px-0 mx-10" />
                                         )}
-                                        <span class="flex flex-col">
+                                        <span class="flex flex-col xl:items-start items-center justify-center mt-4 xl:mt-0">
                                             <strong class="text-2xl font-semibold">{servicio.nombre}</strong> 
-                                            <small class="text-lg mt-2 mr-8">{servicio.descripcion}</small>
+                                            <small class="text-lg mt-2 xl:mr-8">{servicio.descripcion}</small>
                                         </span>
                                     </div>
                                     <div class="text-center">
                                         <span class="font-bold text-2xl">${precioFormateado}</span>
-                                        <div class="flex justify-end space-x-2 mt-2">
-                                            <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition" 
+                                        <div class="flex xl:justify-end justify-center space-x-2 mt-2">
+                                            <button class="bg-yellow-500 text-white px-3 py-1 w-24 rounded hover:bg-yellow-600 transition" 
                                             id={servicio.id} 
                                             data-nombre={servicio.nombre} 
                                             data-descripcion={servicio.descripcion}
@@ -77,7 +80,7 @@ const servicios = rows as any[];
                                             >
                                                 Editar
                                             </button>
-                                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition" 
+                                            <button class="bg-red-500 text-white px-3 py-1 w-24 rounded hover:bg-red-600 transition" 
                                             id={servicio.id}
                                             data-nombre={servicio.nombre} 
                                             data-descripcion={servicio.descripcion}
@@ -151,6 +154,26 @@ const servicios = rows as any[];
                 eliminarServicio: (id: string) => void;
             }
         }
+
+        
+        // Mostrar la vista previa de la imagen cuando el usuario selecciona una imagen en el formulario
+        const imgPreview = document.getElementById("img-preview") as HTMLImageElement;
+        const imgSelect = document.getElementById("image-select") as HTMLInputElement;
+
+        imgSelect.addEventListener("change", () => {
+            const file = imgSelect.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imgPreview.src = e.target?.result as string;
+                    imgPreview.classList.remove("hidden");
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imgPreview.classList.add("hidden");
+                imgPreview.src = "";
+            }
+        });
     
             // Leer parámetros de la URL
         const params = new URLSearchParams(window.location.search);

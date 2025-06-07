@@ -1,0 +1,33 @@
+---
+// src/pages/login.astro
+---
+<html>
+  <body class="p-8">
+    <form id="loginForm" class="max-w-sm mx-auto bg-white p-6 rounded shadow">
+      <h1 class="text-xl font-bold mb-4">Iniciar sesión</h1>
+      <input id="username" placeholder="Usuario" required class="w-full mb-4 px-3 py-2 border rounded" />
+      <input type="password" id="password" placeholder="Contraseña" required class="w-full mb-4 px-3 py-2 border rounded" />
+      <button type="submit" class="bg-black text-white px-4 py-2 rounded">Entrar</button>
+    </form>
+
+    <script type="module">
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        });
+
+        if (res.ok) {
+          window.location.href = '/admin';
+        } else {
+          alert('Credenciales incorrectas');
+        }
+      });
+    </script>
+  </body>
+</html>
