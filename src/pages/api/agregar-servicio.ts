@@ -105,3 +105,17 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     });
   });
 };
+
+export async function handleAgregarServicio({ nombre, descripcion, precioBase }: {
+  nombre: string;
+  descripcion: string;
+  precioBase: string;
+}) {
+  if (!nombre || !descripcion || !precioBase) {
+    return new Response("Campos requeridos faltantes", { status: 400 });
+  }
+
+  // Simula inserción exitosa
+  return new Response("Servicio agregado", { status: 200 });
+}
+
