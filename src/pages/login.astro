@@ -1,33 +1,33 @@
 ---
-// src/pages/login.astro
+import Layout from '../layouts/Layout.astro';
 ---
-<html>
-  <body class="p-8">
-    <form id="loginForm" class="max-w-sm mx-auto bg-white p-6 rounded shadow">
-      <h1 class="text-xl font-bold mb-4">Iniciar sesión</h1>
+<Layout title="VIC Seguridad - Iniciar sesión como administrador.">
+  <main class="justify-center items-center flex min-h-screen bg-slate-200 px-4">
+    <form id="loginForm" class="max-w-md mx-auto bg-white p-6 rounded shadow-lg">
+      <h1 class="text-3xl font-semibold mb-8">Iniciar sesión como Admin</h1>
       <input id="username" placeholder="Usuario" required class="w-full mb-4 px-3 py-2 border rounded" />
-      <input type="password" id="password" placeholder="Contraseña" required class="w-full mb-4 px-3 py-2 border rounded" />
-      <button type="submit" class="bg-black text-white px-4 py-2 rounded">Entrar</button>
+      <input type="password" id="password" placeholder="Contraseña" required class="w-full mb-8 px-3 py-2 border rounded" />
+      <button type="submit" class="bg-transparent text-black border-2 border-black hover:bg-black hover:text-white transition px-4 py-2 rounded justify-center w-full text-xl">Entrar</button>
     </form>
+  </main>
+  <script type="module">
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-    <script type="module">
-      document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        });
-
-        if (res.ok) {
-          window.location.href = '/admin';
-        } else {
-          alert('Credenciales incorrectas');
-        }
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
       });
-    </script>
-  </body>
-</html>
+
+      if (res.ok) {
+        window.location.href = '/admin';
+      } else {
+        alert('Credenciales incorrectas');
+      }
+    });
+  </script>
+ </Layout>
+

@@ -8,14 +8,29 @@ const [rows] = await db.query("SELECT * FROM servicios");
 
 const servicios = rows as any[];
 
+const session = Astro.cookies.get('admin_session');
+
+if (!session || session.value !== 'ok') {
+  // Si no hay cookie válida, redirige
+  return Astro.redirect('/login');
+}
+
+
 ---
 
 <Layout title="VIC Seguridad - Administrar Servicios.">
 
     <main class="min-h-svh mx-auto bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 items-center flex xl:px-20 px-4 pt-32 pb-20 relative">
 
-        <div class="flex flex-col items-center justify-center max-w-5xl w-full mx-auto bg-gray-100 rounded-md shadow xl:p-16 p-4">
-            <section class="w-full h-fit">
+        <div class="flex flex-col items-center justify-center max-w-5xl w-full mx-auto bg-gray-100 rounded-md shadow xl:p-16 py-14 p-4 relative">
+            <section class="w-full h-fit md:relative">
+
+                <form action="/api/logout" method="GET" class="absolute md:right-0 md:top-0 right-4 top-4"> 
+                    <button type="submit" class="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition md:px-4 md:py-2 px-2 py-1 rounded-md ">
+                        Cerrar sesión
+                    </button>
+                </form>
+
                 <h1 class="text-2xl md:text-4xl font-bold mb-4 md:mb-8 text-center">Agregar Servicio</h1>
                 
                 <form method="POST" action="/api/agregar-servicio" enctype="multipart/form-data" class="space-y-4">
@@ -36,7 +51,7 @@ const servicios = rows as any[];
 
                     <div class="overflow-auto">
                         <label class="block font-medium">Imagen</label>
-                        <input id="image-select" type="file" name="imagen" accept="image/*" class="py-2 rounded" />
+                        <input id="image-select" type="file" name="imagen" accept="image/*" required class="py-2 rounded" />
                     </div>
                     <div class="mt-2">
                         <img id="img-preview" src="" alt="Vista previa de imagen" class="max-h-40 rounded shadow hidden" />
@@ -109,7 +124,7 @@ const servicios = rows as any[];
     
         <!-- Modal for editing a service -->
         <div id="edit-modal" class="absolute hidden inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
-            <div class="bg-white p-6 rounded shadow-lg text-wrap">
+            <div class="bg-white p-6 rounded shadow-lg text-wrap max-w-[90vw] md: max-w-auto ">
                 <h2 class="text-2xl font-bold mb-4 text-center">Editar Servicio</h2>
                 <form id="edit-service-form" class="space-y-4" enctype="multipart/form-data">
                     <div>
@@ -128,8 +143,10 @@ const servicios = rows as any[];
                     </div>
 
                     <div>
-                        <label class="block font-medium">Imagen</label>
-                        <input id="edit-imagen" type="file" name="imagen" accept="image/*" class="py-2 rounded flex" />
+                        <div class="overflow-auto">
+                            <label class="block font-medium">Imagen</label>
+                            <input id="edit-imagen" type="file" name="imagen" accept="image/*" class="py-2 rounded" />
+                        </div>
                         <div class="mt-2">
                             <img id="edit-preview" src="" alt="Vista previa de imagen" class="max-h-40 rounded shadow hidden" />
                             <input type="hidden" id="edit-imagen-actual" name="imagenActual" />
