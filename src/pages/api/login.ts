@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
 import { db } from '../../data/db';
 
