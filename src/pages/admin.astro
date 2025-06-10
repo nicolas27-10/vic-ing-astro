@@ -7,15 +7,6 @@ import { db } from "../data/db";
 const [rows] = await db.query("SELECT * FROM servicios");
 
 const servicios = rows as any[];
-
-const session = Astro.cookies.get('admin_session');
-
-if (!session || session.value !== 'ok') {
-  // Si no hay cookie válida, redirige
-  return Astro.redirect('/login');
-}
-
-
 ---
 
 <Layout title="VIC Seguridad - Administrar Servicios.">
@@ -228,7 +219,7 @@ if (!session || session.value !== 'ok') {
                     modal.classList.add("hidden");
                     modal.classList.remove("flex");
                     window.history.replaceState({}, document.title, "/admin"); // Elimina los parámetros de la URL
-                }
+                }44
             });
         }
 
