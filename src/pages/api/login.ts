@@ -5,6 +5,8 @@ import { db } from '../../data/db';
 export const POST: APIRoute = async ({ request, cookies }) => {
   const { username, password } = await request.json();
 
+  console.log('Intento de login:', { username, password });
+
   if (!username || !password) {
     return new Response('Faltan credenciales', { status: 400 });
   }
