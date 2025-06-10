@@ -32,10 +32,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     maxAge: 60 * 30, // 2 horas
   });
 
-  return new Response(null, {
-  status: 302,
-  headers: {
-    Location: '/admin',
-  },
-});
+  console.log(cookies.get('admin_session'));
+
+  console.log('Usuario autenticado:', usuario.username);
+  return new Response('Login exitoso', { status: 200 });
 };
