@@ -8,12 +8,18 @@ const servicios = rows as any[];
 ---
 
 <Layout title="VIC Ing y Seguridad.">
-	<main class="min-h-screen">
+	<main class="min-h-screen bg-white">
         <section class=" bg-[url('/images/back/fondo-camara.jpg')] bg-cover bg-center min-h-80 flex items-center justify-center overflow-hidden relative">
 	        <div class="absolute inset-0 bg-black opacity-70"></div>
             <h1 class="text-4xl md:text-6xl text-center text-white z-10 md:pt-24 md:pb-10 pt-14">Nuestros Servicios</h1>
         </section>
-        <section>
+        <section class="min-h-full bg-white">
+            {servicios.length === 0 && (
+                <div class="text-center py-20">
+                    <h2 class="text-2xl font-bold">No hay servicios disponibles en este momento.</h2>
+                </div>
+            )}
+            {servicios.length > 0 && (
             <ul class="grid grid-cols-1 md:grid-cols-2 gap-8 xl:px-20 px-4 py-20 bg-gray-100">
                 {servicios.map((servicio) => {
                     const precioFormateado = new Intl.NumberFormat("es-CL").format(servicio.precioBase);
@@ -52,6 +58,7 @@ const servicios = rows as any[];
                     );
                 })}
             </ul>
+            )}
         </section>
     </main>
 </Layout>
